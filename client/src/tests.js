@@ -25,6 +25,9 @@ class Button extends React.Component {
 describe('Button component', () => {
     Test('it shows the expected text when clicked (testing the wrong way!)', () => {
        const component = create(<Button text="hello everybody" />);
-       const instance = component.getInstance();
-       expect (instance.state.text).toBe("");
+       const instance = component.root;
+       const button = instance.findByType('button');
+       button.props.onClick();
+       expect(instance.props.children).toBe('PROCEED TO CHECKOUT');
+});
 });
