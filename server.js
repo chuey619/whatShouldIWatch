@@ -14,3 +14,37 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
+});
+
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
+
+app.use("*", (req, res) => {
+  res.status(404).json({
+    message: "not found",
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({
+    error: err,
+    message: err.message,
+  });
+});
