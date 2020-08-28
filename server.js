@@ -35,6 +35,9 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
+const mediaRoutes = require("./routes/media-router");
+app.use("/api/media", mediaRoutes);
+
 app.use("*", (req, res) => {
   res.status(404).json({
     message: "not found",
