@@ -17,14 +17,22 @@ app.use(cookieParser());
 
 app.use(
   session({
+    key: process.env.SECRET_KEY,
     secret: process.env.SECRET_KEY,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(express.static("public"));
+
+app.use((req, res, next) => {
+  console.log("---------", req.user, req.path);
+  next();
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

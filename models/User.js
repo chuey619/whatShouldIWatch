@@ -35,9 +35,7 @@ class User {
           `,
         this
       )
-      .then((savedUser) => {
-        Object.assign(this, savedUser);
-      });
+      .then((savedUser) => Object.assign(this, savedUser));
   }
   setServices() {
     return db
@@ -57,9 +55,9 @@ class User {
   }
 }
 
-User.getByUsername("test001").then((user) => {
-  user.setServices().then(() => {
-    console.log(user.services);
-  });
-});
+// User.getByUsername("test001").then((user) => {
+//   user.setServices().then(() => {
+//     console.log(user.services);
+//   });
+// });
 module.exports = User;
