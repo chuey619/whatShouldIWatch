@@ -10,7 +10,7 @@ axios({
     "content-type": "application/octet-stream",
     "x-rapidapi-host":
       "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-    "x-rapidapi-key": "1621432a01mshfec417d2fd5717fp174e10jsnfbbf5825f3e2",
+    ,
     useQueryString: true,
   },
   params: {
