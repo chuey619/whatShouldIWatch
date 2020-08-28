@@ -27,10 +27,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT),
-  () => {
-    console.log(`listening on port ${PORT}`);
-  };
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
+});
 
 app.get("/", (req, res) => {
   res.send("hello world");
