@@ -50,8 +50,16 @@ class User {
         this.id
       )
       .then((services) => {
-        this.services = services;
+        services.map((service) => {
+          this.services.push(service.name);
+        });
       });
   }
 }
+
+User.getByUsername("test001").then((user) => {
+  user.setServices().then(() => {
+    console.log(user.services);
+  });
+});
 module.exports = User;

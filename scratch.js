@@ -1,4 +1,5 @@
 const axios = require("axios");
+require("dotenv").config();
 const user = {
   services: ["Hulu", "Netflix"],
 };
@@ -10,7 +11,7 @@ axios({
     "content-type": "application/octet-stream",
     "x-rapidapi-host":
       "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-    ,
+    "x-rapidapi-key": process.env.API_KEY,
     useQueryString: true,
   },
   params: {
