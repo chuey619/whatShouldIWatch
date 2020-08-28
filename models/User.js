@@ -6,6 +6,7 @@ class User {
       (this.username = user.username),
       (this.email = user.email),
       (this.password_digest = user.password_digest);
+    this.services = [];
   }
   static getByUsername(username) {
     return db
@@ -36,6 +37,20 @@ class User {
       )
       .then((savedUser) => {
         Object.assign(this, savedUser);
+      });
+  }
+  setServices() {
+    return db
+      .manyOrNone(
+        `
+      SELECT services.name FROM services JOIN users_services
+      ON services.id = users_services.service_id
+      WHERE users_services.user_id = $1
+      `,
+        this.id
+      )
+      .then((services) => {
+        this.services = services;
       });
   }
 }
