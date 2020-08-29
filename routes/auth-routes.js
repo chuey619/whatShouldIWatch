@@ -10,7 +10,7 @@ authRouter.post(
   usersController.create,
   insertIntoUsersServices.insert
 );
-//  add this when we have services running
+
 authRouter.post(
   "/login",
   passport.authenticate("local", {
