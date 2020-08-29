@@ -3,10 +3,14 @@ const authRouter = express.Router();
 const passport = require("../services/auth/local");
 const authHelpers = require("../services/auth/auth-helpers");
 const usersController = require("../controllers/users-controller");
-const insertIntoUsersServices = require("../services/insertIntoUserServices").insert();
+const insertIntoUsersServices = require("../services/insertIntoUserServices");
 
-authRouter.post("/register", usersController.create);
-// , insertIntoUsersServices add this when we have services running
+authRouter.post(
+  "/register",
+  usersController.create,
+  insertIntoUsersServices.insert
+);
+//  add this when we have services running
 authRouter.post(
   "/login",
   passport.authenticate("local", {
