@@ -27,8 +27,4 @@ class Service {
   }
 }
 
-Service.getIdByName("hulu").then((found) => {
-  console.log(found);
-});
-
 module.exports = Service;

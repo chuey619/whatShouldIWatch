@@ -4,25 +4,29 @@ const User = require("../models/User");
 const usersServicesHelpers = {};
 
 usersServicesHelpers.insert = (req, res, next) => {
-  req.body.services.forEach((service) => {
-    Service.getIdByName(service)
-      .then((foundServiceId) => {
-        return db.one(
-          `
+  if (req.body) {
+    req.body.services.forEach((service) => {
+      Service.getIdByName(service)
+        .then((foundServiceId) => {
+          return db.one(
+            `
           INSERT INTO users_services
           (user_id, service_id)
           VALUES
           ($1, $2)
           `,
-          [req.user.id, foundServiceId]
-        );
-      })
-      .then(() => {
-        User.getByUsername(req.user.username).then((user) => {
-          user.setServices();
+            [req.user.id, foundServiceId]
+          );
+        })
+        .then(() => {
+          User.getByUsername(req.user.username).then((user) => {
+            user.setServices();
+          });
         });
-      });
-  });
+    });
+  } else {
+    next();
+  }
 };
 
 module.exports = usersServicesHelpers;
