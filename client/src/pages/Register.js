@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "../components";
+import { Navbar, Footer } from "../components";
 import {
   Flex,
   Box,
@@ -47,6 +47,7 @@ function Register() {
           </form>
         </Box>
       </Flex>
+      <Footer />
     </>
   );
 }
