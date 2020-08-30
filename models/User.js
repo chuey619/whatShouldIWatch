@@ -24,6 +24,16 @@ class User {
         }
       });
   }
+  getFavorites() {
+    return db.manyOrNone(
+      `
+    SELECT movies.ref_id FROM users_favorites JOIN movies
+    ON movies.id = user_favorites.movie_id
+    WHERE user_favorites.user_id = $1
+    `,
+      this.id
+    );
+  }
   save() {
     return db
       .one(
