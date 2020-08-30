@@ -52,7 +52,8 @@ class Search extends React.Component {
         console.log(error);
       });
   };
-
+  // onclick should link to /api/media/result.id to get to show page
+  // reference to movie is saved on show page so you can save to collections from there
   render() {
     return (
       <div>
