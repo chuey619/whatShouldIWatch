@@ -11,11 +11,17 @@ authRouter.post(
   insertIntoUsersServices.insert
 );
 
+<<<<<<< HEAD
+authRouter.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/',
+=======
 authRouter.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/home",
+>>>>>>> master
     failureFlash: true,
   })
 );
