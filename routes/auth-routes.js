@@ -4,7 +4,7 @@ const passport = require("../services/auth/local");
 const authHelpers = require("../services/auth/auth-helpers");
 const usersController = require("../controllers/users-controller");
 const insertIntoUsersServices = require("../services/insertIntoUserServices");
-
+const User = require("../models/User");
 authRouter.post(
   "/register",
   usersController.create
@@ -16,7 +16,12 @@ authRouter.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/",
-  })
+  }),
+  () => {
+    User.findByUsername(req.user.username).then((foundUser) => {
+      foundUser.setServices();
+    });
+  }
 );
 
 authRouter.get("/verify", (req, res) => {

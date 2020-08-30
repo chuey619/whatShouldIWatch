@@ -2,6 +2,9 @@ import React from "react";
 import { Navbar, Footer } from "../components";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import SubscriptionsModal from "../components/SubscriptionsModal";
+import useQuery from "../hooks/useQuery";
+import { useParams } from "react-router-dom";
 import {
   Flex,
   Box,
@@ -11,7 +14,7 @@ import {
   Input,
   Button,
 } from "@chakra-ui/core";
-
+import { useDisclosure } from "@chakra-ui/core";
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +26,11 @@ class Register extends React.Component {
       services: [],
     };
   }
+  renderModal = () => {
+    const shouldAskSubscription = useQuery().has("askSubscription");
+    const { isOpen, onOpen, onClose } = useDisclosure(shouldAskSubscription);
+    <SubscriptionsModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />;
+  };
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
