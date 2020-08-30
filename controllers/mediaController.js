@@ -1,35 +1,29 @@
 const Movie = require("../models/Movie");
+const User = require("../models/User");
 const mediaController = {};
 const fetch = require("node-fetch");
 const axios = require("axios");
 mediaController.index = (req, res, next) => {
   Movie.getAllForUserByServices(req.user.id);
 };
-mediaController.search = (req, res, next) => {
-  res.results = [];
-  console.log(req.body);
-  axios({
-    method: "GET",
-    url:
-      "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup",
-    headers: {
-      "content-type": "application/octet-stream",
-      "x-rapidapi-host":
-        "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-      "x-rapidapi-key": "1621432a01mshfec417d2fd5717fp174e10jsnfbbf5825f3e2",
-      useQueryString: true,
-    },
-    params: {
-      term: req.body.term,
-      country: "uk",
-    },
-  })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log(error);
+mediaController.show = (req, res, next) => {
+  fetch(
+    `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id=${req.params.id}&source=utelly`,
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host":
+          "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
+        "x-rapidapi-key": process.env.API_KEY,
+      },
+    }
+  )
+    .then((res) => res.json())
+    .then((json) => {
+      new Movie({ title: json.collection.name, ref_id: json.id }).save();
+      return json;
     });
 };
+// mediaController.addToFavorties = (req, res, next) => {};
 
 module.exports = mediaController;

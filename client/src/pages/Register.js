@@ -35,7 +35,7 @@ function Register() {
             </FormControl>
             <FormControl mt={6}>
               <FormLabel color="white">Username</FormLabel>
-              <Input type="email" placeholder="create username" />
+              <Input type="text" placeholder="create username" />
             </FormControl>
             <FormControl mt={6}>
               <FormLabel color="white">Password</FormLabel>
