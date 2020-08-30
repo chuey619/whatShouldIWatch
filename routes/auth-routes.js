@@ -7,22 +7,15 @@ const insertIntoUsersServices = require("../services/insertIntoUserServices");
 
 authRouter.post(
   "/register",
-  usersController.create,
-  insertIntoUsersServices.insert
+  usersController.create
+  // insertIntoUsersServices.insert
 );
 
-<<<<<<< HEAD
-authRouter.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/',
-=======
 authRouter.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/home",
-    failureRedirect: "/home",
->>>>>>> master
-    failureFlash: true,
+    successRedirect: "/",
+    failureRedirect: "/",
   })
 );
 
