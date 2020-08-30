@@ -12,25 +12,45 @@ import {
   SimpleGrid,
   Image,
 } from "@chakra-ui/core";
+import FastAverageColor from "fast-average-color";
 
 const DEFAULT_STATE = {
-  netflix: false,
-  hulu: false,
-  hbomax: false,
-  primevideo: false,
-  disneyplus: false,
-  appletv: false,
+  netflix: {
+    active: false,
+    color: "#d13535",
+  },
+  hulu: {
+    active: false,
+    color: "#f3fdf7",
+  },
+  hbomax: {
+    active: false,
+    color: "#36354b",
+  },
+  primevideo: {
+    active: false,
+    color: "#14222e",
+  },
+  disneyplus: {
+    active: false,
+    color: "#6a5ca9",
+  },
+  appletv: {
+    active: false,
+    color: "#f3f3f3",
+  },
 };
 
 const ToggleableImage = ({
   subscriptionName,
   toggleSubscription,
-  isToggled,
+  active,
+  color,
 }) => {
   const imageURL = `/assets/${subscriptionName}-${
-    isToggled ? "active" : "inactive"
+    active ? "active" : "inactive"
   }.png`;
-  console.log(imageURL);
+  console.log(active ? `1px 3px 16px ${color}` : "uh oh");
   return (
     <Image
       src={imageURL}
@@ -39,7 +59,7 @@ const ToggleableImage = ({
         toggleSubscription(subscriptionName);
       }}
       borderRadius="md"
-      boxShadow={isToggled ? "1px 3px 16px #d6de94" : ""}
+      boxShadow={active ? `1px 3px 16px ${color}` : ""}
     />
   );
 };
@@ -49,9 +69,14 @@ const SubscriptionsModal = ({ isOpen, onOpen, onClose }) => {
 
   const toggleSubscription = (subscriptionName) => {
     setSubscriptions((prevState) => {
+      console.log(prevState);
+
       return {
         ...prevState,
-        [subscriptionName]: !prevState[subscriptionName],
+        [subscriptionName]: {
+          ...prevState[subscriptionName],
+          active: !prevState[subscriptionName].active,
+        },
       };
     });
   };
@@ -66,25 +91,30 @@ const SubscriptionsModal = ({ isOpen, onOpen, onClose }) => {
       >
         <ModalOverlay bg="rgb(0 0 0 / 80%)" />
         <ModalContent
-          bgImage="url('/assets/bokeh2.png')"
+          bg="gray.900"
           bgPos="center"
           color="gray.200"
+          borderRadius="lg"
+          boxShadow="1px 3px 32px #4a3853"
         >
           <ModalHeader>Add Your Subscriptions</ModalHeader>
           <ModalBody>
             <Text mb={4}>Click your subscriptions</Text>
             <FormControl>
               <SimpleGrid minChildWidth="120px" spacing="20px">
-                {Object.entries(subscriptions).map(([name, isToggled]) => {
-                  return (
-                    <ToggleableImage
-                      key={name}
-                      subscriptionName={name}
-                      toggleSubscription={toggleSubscription}
-                      isToggled={isToggled}
-                    />
-                  );
-                })}
+                {Object.entries(subscriptions).map(
+                  ([name, { color, active }]) => {
+                    return (
+                      <ToggleableImage
+                        key={name}
+                        subscriptionName={name}
+                        toggleSubscription={toggleSubscription}
+                        active={active}
+                        color={color}
+                      />
+                    );
+                  }
+                )}
               </SimpleGrid>
             </FormControl>
           </ModalBody>

@@ -64,7 +64,9 @@ const Navbar = (props) => {
         alignItems="center"
         flexGrow={1}
       >
-        <NavbarItems>About</NavbarItems>
+        <Link to="/about">
+          <NavbarItems>About</NavbarItems>
+        </Link>
         <NavbarItems>Search</NavbarItems>
         <NavbarItems>My Profile</NavbarItems>
       </Box>

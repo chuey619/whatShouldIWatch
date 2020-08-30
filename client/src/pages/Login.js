@@ -43,7 +43,7 @@ function Login() {
           </form>
         </Box>
       </Flex>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
