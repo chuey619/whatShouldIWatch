@@ -1,13 +1,5 @@
 import { theme } from "@chakra-ui/core";
 
-// // Custom breakpoints
-// const breakpoints = {
-//   sm: "360px",
-//   md: "768px",
-//   lg: "1024px",
-//   xl: "1440px",
-// };
-
 const breakpoints = ["360px", "768px", "1024px", "1440px"];
 breakpoints.sm = breakpoints[0];
 breakpoints.md = breakpoints[1];
