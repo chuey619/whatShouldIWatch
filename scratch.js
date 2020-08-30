@@ -21,11 +21,9 @@ axios({
 })
   .then((response) => {
     response.data.results.forEach((result) => {
-      result.locations.forEach((location) => {
-        if (user.services.includes(location.display_name)) {
-          console.log(result.name);
-        }
-      });
+      // result.locations.forEach((location) => {
+      //   if (user.services.includes(location.display_name)) {
+      console.log(result.id);
     });
   })
   .catch((error) => {
