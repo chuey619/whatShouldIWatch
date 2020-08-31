@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Router } from "react-router-dom";
 class Results extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class Results extends React.Component {
         {this.state.results.map((result) => {
           return (
             <div>
-              <p>{result.name}</p>
+              <Link to={`/media/${result.id}`}>{result.name}</Link>
             </div>
           );
         })}
