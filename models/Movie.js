@@ -4,7 +4,8 @@ class Movie {
   constructor(movie) {
     (this.id = movie.id || null),
       (this.title = movie.title),
-      (this.ref_id = movie.ref_id);
+      (this.ref_id = movie.ref_id),
+      (this.picture = movie.picture);
   }
   static getAll() {
     return db.manyOrNone(`SELECT * FROM movies`).then((movies) => {
@@ -12,6 +13,18 @@ class Movie {
         return new this(movie);
       });
     });
+  }
+  static getByRefId(id) {
+    return db
+      .oneOrNone(
+        `
+    SELECT * FROM movies where ref_id = $1
+    `
+      )
+      .then((movie) => {
+        if (movie) return new this(movie);
+        throw new Error("movie not found");
+      });
   }
   static getAllForUserByServices(user_id) {
     return db
@@ -34,9 +47,9 @@ class Movie {
       .one(
         `
     INSERT INTO movies
-    (title, ref_id)
+    (title, ref_id, picture)
     VALUES
-    ($/title/, $/ref_id/)
+    ($/title/, $/ref_id/, $/picture/)
     RETURNING *
     `,
         this

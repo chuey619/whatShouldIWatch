@@ -20,10 +20,14 @@ mediaController.show = (req, res, next) => {
   )
     .then((res) => res.json())
     .then((json) => {
-      new Movie({ title: json.collection.name, ref_id: json.id }).save();
+      new Movie({
+        title: json.collection.name,
+        ref_id: json.id,
+        picture: json.picture,
+      }).save();
       return json;
     });
 };
-// mediaController.addToFavorties = (req, res, next) => {};
+mediaController.addToFavorties = (req, res, next) => {};
 
 module.exports = mediaController;

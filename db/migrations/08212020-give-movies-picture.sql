@@ -1,0 +1,2 @@
+ALTER TABLE movies 
+ADD COLUMN picture VARCHAR;
