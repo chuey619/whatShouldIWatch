@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, SubscriptionsModal } from "../components/";
+import Search from "../pages/search";
 import Footer from "../components/Footer";
 import {
   useDisclosure,
@@ -72,20 +73,8 @@ function Home() {
         >
           <Heading color="white">Browse movies and shows in one click.</Heading>
           <p>Search from six services and save your favorites for later!</p>
-          <form>
-            <FormControl>
-              <Input
-                type="search"
-                width="30vw"
-                placeholder="What would you like to watch?"
-                mt="20px"
-              />
-            </FormControl>
-            <Button width="20vw" mt={4} type="submit" variantColor="purple">
-              Search
-            </Button>
-          </form>
         </Box>
+        <Search />
       </SimpleGrid>
       <SubscriptionsModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <Footer />
@@ -94,3 +83,18 @@ function Home() {
 }
 
 export default Home;
+{
+  /* <form>
+<FormControl>
+  <Input
+    type="search"
+    width="30vw"
+    placeholder="What would you like to watch?"
+    mt="20px"
+  />
+</FormControl>
+<Button width="20vw" mt={4} type="submit" variantColor="purple">
+  Search
+</Button>
+</form> */
+}

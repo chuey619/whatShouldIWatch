@@ -15,13 +15,14 @@
 
 import React from "react";
 import axios from "axios";
-import { Link, Router } from "react-router-dom";
+import { Link, Router, Redirect } from "react-router-dom";
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       term: "",
       results: [],
+      redirect: false,
     };
   }
   handleChange = (e) => {
@@ -44,6 +45,7 @@ class Search extends React.Component {
       .then((json) => {
         this.setState({
           results: json.data.results,
+          redirect: true,
         });
       })
       .catch((error) => {
@@ -55,6 +57,14 @@ class Search extends React.Component {
   render() {
     return (
       <div>
+        {this.state.redirect && (
+          <Redirect
+            to={{
+              pathname: "/results",
+              state: { results: this.state.results },
+            }}
+          />
+        )}
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -65,8 +75,10 @@ class Search extends React.Component {
           />
           <input type="submit" />
         </form>
-        <div>
-          {this.state.results &&
+      </div>
+    );
+    {
+      /* {this.state.results &&
             this.state.results.map((movie) => {
               return (
                 <div>
@@ -76,8 +88,8 @@ class Search extends React.Component {
               );
             })}
         </div>
-      </div>
-    );
+          </div>   } */
+    }
   }
 }
 
