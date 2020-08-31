@@ -4,7 +4,12 @@ const mediaController = {};
 const fetch = require("node-fetch");
 const axios = require("axios");
 mediaController.index = (req, res, next) => {
-  Movie.getAllForUserByServices(req.user.id);
+  Movie.getAllForUserByServices(23).then((movies) => {
+    return res.json({
+      message: "ok",
+      data: movies,
+    });
+  });
 };
 mediaController.show = (req, res, next) => {
   fetch(
@@ -25,32 +30,78 @@ mediaController.show = (req, res, next) => {
         ref_id: json.id,
         picture: json.collection.picture,
       }).save();
-      return json;
-    });
+      return res.json({
+        message: "ok",
+        data: json,
+      });
+    })
+    .catch(next);
+};
+mediaController.getFavorites = (req, res, next) => {
+  User.getById(req.params.user_id)
+    .then((foundUser) => {
+      return foundUser.getFavorites();
+    })
+    .then((favorites) => {
+      return res.json({
+        message: "data found",
+        data: favorites,
+      });
+    })
+    .catch(next);
+};
+mediaController.getWatchLater = (req, res, next) => {
+  User.getById(req.params.user_id)
+    .then((foundUser) => {
+      return foundUser.getWatchLater();
+    })
+    .then((watchLater) => {
+      return res.json({
+        message: "data found",
+        data: watchLater,
+      });
+    })
+    .catch(next);
 };
 mediaController.addToFavorties = (req, res, next) => {
-  Movie.getByRefId(req.params.id).then((foundMovie) => {
-    foundMovie.saveToFavorites(23);
-    next();
-  });
+  Movie.getByRefId(req.params.id)
+    .then((foundMovie) => {
+      foundMovie.saveToFavorites(23);
+      return res.json({
+        message: "movie saved succesfully",
+      });
+    })
+    .catch(next);
 };
 mediaController.addToWatchLater = (req, res, next) => {
-  Movie.getByRefId(req.params.id).then((foundMovie) => {
-    foundMovie.saveToWatchLater(23);
-    next();
-  });
+  Movie.getByRefId(req.params.id)
+    .then((foundMovie) => {
+      foundMovie.saveToWatchLater(23);
+      return res.json({
+        message: "added to watch later",
+      });
+    })
+    .catch(next);
 };
 mediaController.deleteFromWatchLater = (req, res, next) => {
-  Movie.getByRefId(req.params.id).then((foundMovie) => {
-    foundMovie.deleteFromWatchLater(23);
-    next();
-  });
+  Movie.getByRefId(req.params.id)
+    .then((foundMovie) => {
+      foundMovie.deleteFromWatchLater(23);
+      return res.json({
+        message: "removed from watch later",
+      });
+    })
+    .catch(next);
 };
 mediaController.deleteFromFavorites = (req, res, next) => {
-  Movie.getByRefId(req.params.id).then((foundMovie) => {
-    foundMovie.deleteFromFavorites(23);
-    next();
-  });
+  Movie.getByRefId(req.params.id)
+    .then((foundMovie) => {
+      foundMovie.deleteFromFavorites(23);
+      return res.json({
+        message: "removed from favorites",
+      });
+    })
+    .catch(next);
 };
 
 module.exports = mediaController;
