@@ -103,5 +103,29 @@ mediaController.deleteFromFavorites = (req, res, next) => {
     })
     .catch(next);
 };
-
+mediaController.search = (req, res, next) => {
+  console.log(req.body);
+  fetch(
+    `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${req.body.term}&country=us`,
+    {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "x-rapidapi-host":
+          "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
+        "x-rapidapi-key": process.env.API_KEY,
+      },
+    }
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      return res.json({
+        message: "ok",
+        data: json,
+      });
+    })
+    .catch(next);
+};
 module.exports = mediaController;
