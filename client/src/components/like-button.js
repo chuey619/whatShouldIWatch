@@ -1,21 +1,24 @@
 
+import React, { useState } from 'react';
+
 
 
 
 class LikeButton extends React.Component {
-    state = {
+    setstate = {
         likes: 0
     };
 
     render() {
     return (
-        <button onClick={this.Liked}> Likes: {this.state.likes}</button>
+        <button onClick={this.Liked}> Likes: {this.state.Movie.Likes}</button>
     )
     }
     Liked = () => {
-        let newCount = this.state.likes + 1
+        let newLike = this.state.Movie.likes + 1
         this.setState({
-            count: newCount
+            likes: newLike
         })
     }
 }
+export default LikeButton;

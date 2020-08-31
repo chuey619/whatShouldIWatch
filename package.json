@@ -22,7 +22,7 @@
     "pg-promise": "^10.6.1",
     "react-test-renderer": "^16.13.1"
   },
-  "scripts" : {
-    "dev" : "nodemon server.js"
+  "scripts": {
+    "dev": "nodemon server.js"
   }
 }

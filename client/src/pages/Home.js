@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { useDisclosure } from "@chakra-ui/core";
 import { useParams } from "react-router-dom";
 import useQuery from "../hooks/useQuery";
+import LikeButton from "../components/like-button";
 
 function Home() {
   const shouldAskSubscription = useQuery().has("askSubscription");

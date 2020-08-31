@@ -4,7 +4,8 @@ class Movie {
   constructor(movie) {
     (this.id = movie.id || null),
       (this.title = movie.title),
-      (this.ref_id = movie.ref_id);
+      (this.ref_id = movie.ref_id),
+      (this.likes = movie.likes);
   }
   static getAll() {
     return db.manyOrNone(`SELECT * FROM movies`).then((movies) => {

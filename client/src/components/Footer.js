@@ -15,7 +15,7 @@ function Footer() {
           <Icon name="view" size="4em" />
         </Box>
         <Text fontSize="xl" fontWeight="medium">
-          {"Website made with love by Charlotte, Chuey & Joleen"}
+          {"Website made with love by Charlotte, Chuey & Jolean"}
         </Text>
       </Stack>
     </Box>
