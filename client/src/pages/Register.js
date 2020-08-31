@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Footer } from "../components";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 import {
   Flex,
   Box,
@@ -11,6 +10,7 @@ import {
   Input,
   Button,
 } from "@chakra-ui/core";
+import axios from "axios";
 
 class Register extends React.Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class Register extends React.Component {
       password: "",
       email: "",
       redirect: false,
-      services: [],
     };
   }
   onChange = (e) => {
@@ -28,20 +27,7 @@ class Register extends React.Component {
       [e.target.name]: e.target.value,
     });
   };
-  toggleService = (service) => {
-    if (this.state.services.includes(service)) {
-      this.setState({
-        services: this.state.services.splice(
-          this.state.services.indexOf(service),
-          1
-        ),
-      });
-    } else {
-      this.setState({
-        services: this.state.services.push(service),
-      });
-    }
-  };
+
   onSubmit = (e) => {
     e.preventDefault();
     axios

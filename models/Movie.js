@@ -5,7 +5,11 @@ class Movie {
     (this.id = movie.id || null),
       (this.title = movie.title),
       (this.ref_id = movie.ref_id),
+<<<<<<< HEAD
       (this.likes = movie.likes);
+=======
+      (this.picture = movie.picture);
+>>>>>>> e4669aa9ec6609af0d9f2d0d4a35c2b5e48f0902
   }
   static getAll() {
     return db.manyOrNone(`SELECT * FROM movies`).then((movies) => {
@@ -13,6 +17,19 @@ class Movie {
         return new this(movie);
       });
     });
+  }
+  static getByRefId(id) {
+    return db
+      .oneOrNone(
+        `
+    SELECT * FROM movies where ref_id = $1
+    `,
+        id
+      )
+      .then((movie) => {
+        if (movie) return new this(movie);
+        throw new Error("movie not found");
+      });
   }
   static getAllForUserByServices(user_id) {
     return db
@@ -35,27 +52,59 @@ class Movie {
       .one(
         `
     INSERT INTO movies
-    (title, ref_id)
+    (title, ref_id, picture)
     VALUES
-    ($/title/, $/ref_id/)
+    ($/title/, $/ref_id/, $/picture/)
     RETURNING *
     `,
         this
       )
       .then((savedMovie) => Object.assign(this, savedMovie));
   }
-  saveToFavorites(username) {
-    User.getByUsername(username).then((foundUser) => {
-      return db.one(
-        `
-        INSERT INTO user_favorites
+  saveToFavorites(user_id) {
+    return db.one(
+      `
+        INSERT INTO users_favorites
         (user_id, movie_id)
         VALUES
         ($1, $2)
+        RETURNING *
         `,
-        [foundUser.id, this.id]
-      );
-    });
+      [user_id, this.id]
+    );
+  }
+
+  saveToWatchLater(user_id) {
+    return db.one(
+      `
+        INSERT INTO users_watch_later
+        (user_id, movie_id)
+        VALUES
+        ($1, $2)
+        RETURNING *
+        `,
+      [user_id, this.id]
+    );
+  }
+  deleteFromFavorites(user_id) {
+    return db.one(
+      `
+      DELETE FROM users_favorites
+      WHERE user_id = $1 AND movie_id = $2
+      RETURNING *
+      `,
+      [user_id, this.id]
+    );
+  }
+  deleteFromWatchLater(user_id) {
+    return db.one(
+      `
+      DELETE FROM users_watch_later
+      WHERE user_id = $1 AND movie_id = $2
+      RETURNING *
+      `,
+      [user_id, this.id]
+    );
   }
 }
 
