@@ -44,7 +44,7 @@ class Movie {
         });
       });
   }
-  static addLike(movie_id, user_id) {
+  static likes(movie_id, user_id) {
     return db 
     .one (`INSERT INTO likes 
     (movie_id, user_id)

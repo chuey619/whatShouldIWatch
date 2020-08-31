@@ -36,11 +36,13 @@ class LikeButton extends React.Component {
          })
          .then(res => res.json())
          .then(LikeButton => {
-             console.log('Success:', LikeButton);
+             console.log('liked:', LikeButton);
          })
          .catch((error) => {
              console.error('Error', error);
          })
+         
+
             //make a route to database after setState  
               //make a request to the post and delete routes 
               // make post add 1 
