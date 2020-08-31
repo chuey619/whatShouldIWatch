@@ -28,8 +28,7 @@ mediaController.show = (req, res, next) => {
       }).save();
       return json;
     });
-};
-  MovieLikes = 
+}; 
 
 mediaController.addToFavorties = (req, res, next) => {
   Movie.getByRefId(req.params.id).then((foundMovie) => {
@@ -43,10 +42,9 @@ mediaController.addToWatchLater = (req, res, next) => {
     next();
   });
 };
-mediaController.addLike = (req, res) => {
-Movie.addLike(req. user_id)
+
+Movie.addLike(req.user_id) 
   MovieLikes++;
-  };
 
 mediaController.deleteFromWatchLater = (req, res, next) => {
   Movie.getByRefId(req.params.id).then((foundMovie) => {
