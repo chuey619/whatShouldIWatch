@@ -3,6 +3,7 @@ const User = require("../models/User");
 const mediaController = {};
 const fetch = require("node-fetch");
 const axios = require("axios");
+const { getByRefId } = require("../models/Movie");
 mediaController.index = (req, res, next) => {
   Movie.getAllForUserByServices(req.user.id);
 };
@@ -28,6 +29,8 @@ mediaController.show = (req, res, next) => {
       return json;
     });
 };
+  MovieLikes = 
+
 mediaController.addToFavorties = (req, res, next) => {
   Movie.getByRefId(req.params.id).then((foundMovie) => {
     foundMovie.saveToFavorites(23);
@@ -40,11 +43,11 @@ mediaController.addToWatchLater = (req, res, next) => {
     next();
   });
 };
-mediaController.addLike = (req, res, next) => {
-  Movie.getByRefId(req.params.id).then((foundMovie) => {
-    foundMovie.saveLike();
-  });
-};
+mediaController.addLike = (req, res) => {
+Movie.addLike(req. user_id)
+  MovieLikes++;
+  };
+
 mediaController.deleteFromWatchLater = (req, res, next) => {
   Movie.getByRefId(req.params.id).then((foundMovie) => {
     foundMovie.deleteFromWatchLater(23);
@@ -58,10 +61,7 @@ mediaController.deleteFromFavorites = (req, res, next) => {
   });
 };
 mediaController.deleteLike = (req, res, next) => {
-  Movie.getByRefId(req.params.id).then((foundMovie) => {
-    foundMovie.deleteLike();
-    next();
-  });
+  Movie.getByRefId(MovieLikes = counter-1)
 };
 
 

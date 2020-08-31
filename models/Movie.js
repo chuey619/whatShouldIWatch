@@ -5,11 +5,8 @@ class Movie {
     (this.id = movie.id || null),
       (this.title = movie.title),
       (this.ref_id = movie.ref_id),
-<<<<<<< HEAD
       (this.likes = movie.likes);
-=======
       (this.picture = movie.picture);
->>>>>>> e4669aa9ec6609af0d9f2d0d4a35c2b5e48f0902
   }
   static getAll() {
     return db.manyOrNone(`SELECT * FROM movies`).then((movies) => {
@@ -46,6 +43,12 @@ class Movie {
           return new this(movie);
         });
       });
+  }
+  static addLike(movie_id, user_id) {
+    return db 
+    .one (`INSERT INTO likes 
+    (movie_id, user_id)
+      VALUES ($1, $2)`, [movie_id, user_id])
   }
   save() {
     return db
