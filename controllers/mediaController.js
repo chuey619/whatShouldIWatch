@@ -40,6 +40,11 @@ mediaController.addToWatchLater = (req, res, next) => {
     next();
   });
 };
+mediaController.addLike = (req, res, next) => {
+  Movie.getByRefId(req.params.id).then((foundMovie) => {
+    foundMovie.saveLike();
+  });
+};
 mediaController.deleteFromWatchLater = (req, res, next) => {
   Movie.getByRefId(req.params.id).then((foundMovie) => {
     foundMovie.deleteFromWatchLater(23);
@@ -52,5 +57,13 @@ mediaController.deleteFromFavorites = (req, res, next) => {
     next();
   });
 };
+mediaController.deleteLike = (req, res, next) => {
+  Movie.getByRefId(req.params.id).then((foundMovie) => {
+    foundMovie.deleteLike();
+    next();
+  });
+};
+
+
 
 module.exports = mediaController;

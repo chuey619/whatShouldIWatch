@@ -1,24 +1,20 @@
-
 import React, { useState } from 'react';
 
+import {
+    Input,
+    Button,
 
-
+} from "@chakra-ui/core";
+import axios from 'axios';
 
 class LikeButton extends React.Component {
-    setstate = {
-        likes: 0
-    };
+  constructor(props) {
+      super(props);
+      this.state = {
 
-    render() {
-    return (
-        <button onClick={this.Liked}> Likes: {this.state.Movie.Likes}</button>
-    )
-    }
-    Liked = () => {
-        let newLike = this.state.Movie.likes + 1
-        this.setState({
-            likes: newLike
-        })
-    }
+      }
+  }  
 }
+
+
 export default LikeButton;
