@@ -23,11 +23,34 @@ mediaController.show = (req, res, next) => {
       new Movie({
         title: json.collection.name,
         ref_id: json.id,
-        picture: json.picture,
+        picture: json.collection.picture,
       }).save();
       return json;
     });
 };
-mediaController.addToFavorties = (req, res, next) => {};
+mediaController.addToFavorties = (req, res, next) => {
+  Movie.getByRefId(req.params.id).then((foundMovie) => {
+    foundMovie.saveToFavorites(23);
+    next();
+  });
+};
+mediaController.addToWatchLater = (req, res, next) => {
+  Movie.getByRefId(req.params.id).then((foundMovie) => {
+    foundMovie.saveToWatchLater(23);
+    next();
+  });
+};
+mediaController.deleteFromWatchLater = (req, res, next) => {
+  Movie.getByRefId(req.params.id).then((foundMovie) => {
+    foundMovie.deleteFromWatchLater(23);
+    next();
+  });
+};
+mediaController.deleteFromFavorites = (req, res, next) => {
+  Movie.getByRefId(req.params.id).then((foundMovie) => {
+    foundMovie.deleteFromFavorites(23);
+    next();
+  });
+};
 
 module.exports = mediaController;

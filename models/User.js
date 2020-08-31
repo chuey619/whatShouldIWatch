@@ -1,5 +1,5 @@
 const db = require("../db/config");
-
+const Movie = require("./Movie");
 class User {
   constructor(user) {
     (this.id = user.id || null),
@@ -27,9 +27,19 @@ class User {
   getFavorites() {
     return db.manyOrNone(
       `
-    SELECT movies.ref_id FROM users_favorites JOIN movies
-    ON movies.id = user_favorites.movie_id
-    WHERE user_favorites.user_id = $1
+    SELECT movies.* FROM users_favorites JOIN movies
+    ON movies.id = users_favorites.movie_id
+    WHERE users_favorites.user_id = $1
+    `,
+      this.id
+    );
+  }
+  getWatchLater() {
+    return db.manyOrNone(
+      `
+    SELECT movies.* FROM users_watch_later JOIN movies
+    ON movies.id = users_watch_later.movie_id
+    WHERE users_favorites.user_id = $1
     `,
       this.id
     );
@@ -65,9 +75,4 @@ class User {
   }
 }
 
-// User.getByUsername("test001").then((user) => {
-//   user.setServices().then(() => {
-//     console.log(user.services);
-//   });
-// });
 module.exports = User;
