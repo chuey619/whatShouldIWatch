@@ -55,7 +55,10 @@ class Movie {
     `,
         this
       )
-      .then((savedMovie) => Object.assign(this, savedMovie));
+      .then((savedMovie) => Object.assign(this, savedMovie))
+      .catch(() => {
+        console.log("movie already saved");
+      });
   }
   saveToFavorites(user_id) {
     return db.one(

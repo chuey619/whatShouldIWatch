@@ -66,7 +66,7 @@ mediaController.getWatchLater = (req, res, next) => {
 mediaController.addToFavorties = (req, res, next) => {
   Movie.getByRefId(req.params.id)
     .then((foundMovie) => {
-      foundMovie.saveToFavorites(23);
+      foundMovie.saveToFavorites(req.user.id);
       return res.json({
         message: "movie saved succesfully",
       });

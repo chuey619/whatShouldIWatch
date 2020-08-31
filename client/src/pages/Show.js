@@ -17,6 +17,16 @@ class Show extends React.Component {
         });
       });
   }
+  addTo = (collection) => {
+    fetch(`/api/media/${this.props.match.params.id}/${collection}`, {
+      method: "POST",
+    });
+  };
+  removeFrom = (collection) => {
+    fetch(`/api/media/${this.props.match.params.id}/${collection}`, {
+      method: "DELETE",
+    });
+  };
   render() {
     return (
       <div>
@@ -27,8 +37,26 @@ class Show extends React.Component {
             <ul>
               {this.state.locations &&
                 this.state.locations.map((location) => {
-                  return <a href={location.url}>{location.display_name}</a>;
+                  return (
+                    <li>
+                      <a href={location.url}>{location.display_name}</a>
+                    </li>
+                  );
                 })}
+              <button
+                onClick={() => {
+                  this.addTo("favorites");
+                }}
+              >
+                Add to favrorites
+              </button>
+              <button
+                onClick={() => {
+                  this.addTo("watch-later");
+                }}
+              >
+                Watch Later
+              </button>
             </ul>
           </div>
         ) : (

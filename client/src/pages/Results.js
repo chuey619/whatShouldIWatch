@@ -13,7 +13,7 @@ class Results extends React.Component {
         {this.state.results.map((result) => {
           return (
             <div>
-              <Link to={`/${result.id}`}>{result.name}</Link>
+              <Link to={`/media/${result.id}`}>{result.name}</Link>
             </div>
           );
         })}
