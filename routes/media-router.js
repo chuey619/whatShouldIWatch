@@ -2,6 +2,7 @@ const mediaRouter = require("express").Router();
 const mediaController = require("../controllers/mediaController");
 
 mediaRouter.get("/", mediaController.index);
+mediaRouter.post("/search", mediaController.search);
 mediaRouter.get("/user/:user_id/favorites", mediaController.getFavorites);
 mediaRouter.get("/user/:user_id/watch-later", mediaController.getWatchLater);
 mediaRouter.get("/:id", mediaController.show);
