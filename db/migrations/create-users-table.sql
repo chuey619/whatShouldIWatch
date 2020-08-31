@@ -1,7 +1,6 @@
-CREATE TABLE users_services (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    user_id INT,
-    service_id INT,
-    FOREIGN KEY(user_id) REFERENCES users(id),
-    FOREIGN KEY(service_id) REFERENCES services(id)
-);
+    username VARCHAR NOT NULL UNIQUE,
+    email VARCHAR NOT NULL UNIQUE,
+    password_digest VARCHAR NOT NULL
+)

@@ -19,7 +19,8 @@ class Movie {
       .oneOrNone(
         `
     SELECT * FROM movies where ref_id = $1
-    `
+    `,
+        id
       )
       .then((movie) => {
         if (movie) return new this(movie);
@@ -56,18 +57,50 @@ class Movie {
       )
       .then((savedMovie) => Object.assign(this, savedMovie));
   }
-  saveToFavorites(username) {
-    User.getByUsername(username).then((foundUser) => {
-      return db.one(
-        `
-        INSERT INTO user_favorites
+  saveToFavorites(user_id) {
+    return db.one(
+      `
+        INSERT INTO users_favorites
         (user_id, movie_id)
         VALUES
         ($1, $2)
+        RETURNING *
         `,
-        [foundUser.id, this.id]
-      );
-    });
+      [user_id, this.id]
+    );
+  }
+
+  saveToWatchLater(user_id) {
+    return db.one(
+      `
+        INSERT INTO users_watch_later
+        (user_id, movie_id)
+        VALUES
+        ($1, $2)
+        RETURNING *
+        `,
+      [user_id, this.id]
+    );
+  }
+  deleteFromFavorites(user_id) {
+    return db.one(
+      `
+      DELETE FROM users_favorites
+      WHERE user_id = $1 AND movie_id = $2
+      RETURNING *
+      `,
+      [user_id, this.id]
+    );
+  }
+  deleteFromWatchLater(user_id) {
+    return db.one(
+      `
+      DELETE FROM users_watch_later
+      WHERE user_id = $1 AND movie_id = $2
+      RETURNING *
+      `,
+      [user_id, this.id]
+    );
   }
 }
 
