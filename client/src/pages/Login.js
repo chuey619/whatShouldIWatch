@@ -7,17 +7,20 @@ import {
   FormLabel,
   Input,
   Button,
+  useToast,
 } from "@chakra-ui/core";
 import { useHistory } from "react-router-dom";
+import { useUserContext } from "../contexts/userContext";
 
 const Login = (props) => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const history = useHistory();
+  const toast = useToast();
+  const [{ user }, dispatch] = useUserContext();
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    setUser((oldState) => {
-      console.log(oldState);
+    setFormData((oldState) => {
       return {
         ...oldState,
         [name]: value,
@@ -29,16 +32,34 @@ const Login = (props) => {
     evt.preventDefault();
     fetch(`/api/auth/login`, {
       method: "POST",
-      body: JSON.stringify(user),
+      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        setUser({ email: "", password: "" });
-        history.push("/");
+        if (res?.data?.user) {
+          console.log(res?.data?.user);
+          dispatch({
+            type: "login",
+            user: res?.data?.user,
+          });
+          history.push("/");
+        } else if (res?.data?.errors) {
+          const errors = res?.data?.errors;
+          if (errors) {
+            errors.forEach(({ title, description }) => {
+              toast({
+                title,
+                description,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+              });
+            });
+          }
+        }
       });
   };
 
@@ -65,8 +86,8 @@ const Login = (props) => {
               <Input
                 type="text"
                 placeholder="enter username/email"
-                name="email"
-                value={user.email}
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
               />
             </FormControl>
@@ -74,7 +95,7 @@ const Login = (props) => {
               <FormLabel color="white">Password</FormLabel>
               <Input
                 name="password"
-                value={user.password}
+                value={formData.password}
                 onChange={handleChange}
                 type="password"
                 placeholder="enter password"

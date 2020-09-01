@@ -13,7 +13,6 @@ import {
   Image,
 } from "@chakra-ui/core";
 
-
 const DEFAULT_STATE = {
   netflix: {
     active: false,
@@ -50,7 +49,6 @@ const ToggleableImage = ({
   const imageURL = `/assets/${subscriptionName}-${
     active ? "active" : "inactive"
   }.png`;
-  console.log(active ? `1px 3px 16px ${color}` : "uh oh");
   return (
     <Image
       src={imageURL}
@@ -69,8 +67,6 @@ const SubscriptionsModal = ({ isOpen, onOpen, onClose }) => {
 
   const toggleSubscription = (subscriptionName) => {
     setSubscriptions((prevState) => {
-      console.log(prevState);
-
       return {
         ...prevState,
         [subscriptionName]: {

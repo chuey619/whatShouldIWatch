@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Flex,
   Box,
@@ -9,7 +9,6 @@ import {
   Input,
   Button,
 } from "@chakra-ui/core";
-import axios from "axios";
 
 const Register = (props) => {
   const [user, setUser] = useState({ username: "", email: "", password: "" });
@@ -37,7 +36,6 @@ const Register = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setUser({ username: "", email: "", password: "" });
         history.push("/");
       });

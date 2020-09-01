@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/core";
 
 import { CustomLink as Link } from ".";
-import { useUser } from "../hooks";
 import { isEmpty } from "../util";
+import { useUserContext } from "../contexts/userContext";
 
 const NavbarItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
@@ -19,9 +19,8 @@ const NavbarItems = ({ children }) => (
   </Text>
 );
 
-// Note: This code could be better, so I'd recommend you to understand how I solved and you could write yours better :)
 const Navbar = (props) => {
-  const { user } = useUser();
+  const [{ user }] = useUserContext();
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
 
@@ -81,7 +80,7 @@ const Navbar = (props) => {
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
-        {isEmpty(user.user) ? (
+        {isEmpty(user) ? (
           <ButtonGroup spacing={4}>
             {" "}
             <Link to={"/login"}>

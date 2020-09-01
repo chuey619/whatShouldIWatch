@@ -2,36 +2,32 @@ const db = require("../db/config");
 const Movie = require("./Movie");
 class User {
   constructor(user) {
-    (this.id = user.id || null),
-      (this.username = user.username),
-      (this.email = user.email),
-      (this.password_digest = user.password_digest);
+    this.id = user.id || null;
+    this.username = user.username;
+    this.email = user.email;
+    this.password_digest = user.password_digest;
     this.services = [];
   }
-  static getByUsername(username) {
+
+  static findByUsername(username) {
     return db
-      .oneOrNone(
-        `
-            SELECT * FROM users where username = $1
-            `,
-        username
-      )
+      .oneOrNone("SELECT * FROM users WHERE username = $1", username)
       .then((user) => {
-        if (user) {
-          return new this(user);
-        } else {
-          throw new Error("user not found");
-        }
+        if (user) return new this(user);
       });
   }
+
+  static findByUserEmail(email) {
+    return db
+      .oneOrNone("SELECT * FROM users WHERE email = $1", email)
+      .then((user) => {
+        if (user) return new this(user);
+      });
+  }
+
   static getById(id) {
     return db
-      .oneOrNone(
-        `
-            SELECT * FROM users where id = $1
-            `,
-        id
-      )
+      .oneOrNone(`SELECT * FROM users where id = $1`, id)
       .then((user) => {
         if (user) {
           return new this(user);
@@ -40,12 +36,13 @@ class User {
         }
       });
   }
+
   getFavorites() {
     return db
       .manyOrNone(
         `
-    SELECT movies.* FROM users_favorites JOIN movies
-    ON movies.id = users_favorites.movie_id
+    SELECT movies.* FROM users_favorites 
+    JOIN movies ON movies.id = users_favorites.movie_id
     WHERE users_favorites.user_id = $1
     `,
         this.id
@@ -54,6 +51,7 @@ class User {
         return movies;
       });
   }
+
   getWatchLater() {
     return db.manyOrNone(
       `
@@ -64,6 +62,7 @@ class User {
       this.id
     );
   }
+
   save() {
     return db
       .one(
@@ -76,22 +75,6 @@ class User {
         this
       )
       .then((savedUser) => Object.assign(this, savedUser));
-  }
-  setServices() {
-    return db
-      .manyOrNone(
-        `
-      SELECT services.name FROM services JOIN users_services
-      ON services.id = users_services.service_id
-      WHERE users_services.user_id = $1
-      `,
-        this.id
-      )
-      .then((services) => {
-        services.map((service) => {
-          this.services.push(service.name);
-        });
-      });
   }
 }
 
