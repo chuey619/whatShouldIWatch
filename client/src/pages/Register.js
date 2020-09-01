@@ -1,5 +1,5 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { Redirect, useHistory } from "react-router-dom";
 import {
   Flex,
   Box,
@@ -11,98 +11,94 @@ import {
 } from "@chakra-ui/core";
 import axios from "axios";
 
-class Register extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      email: "",
-      redirect: false,
-    };
-  }
-  onChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
+const Register = (props) => {
+  const [user, setUser] = useState({ username: "", email: "", password: "" });
+  const history = useHistory();
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setUser((oldState) => {
+      console.log(oldState);
+      return {
+        ...oldState,
+        [name]: value,
+      };
     });
   };
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/auth/register", {
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then(() => {
-        this.setState({
-          username: "",
-          password: "",
-          email: "",
-          redirect: true,
-        });
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    fetch(`/api/auth/register`, {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setUser({ username: "", email: "", password: "" });
+        history.push("/");
       });
   };
-  render() {
-    return (
-      <>
-        {this.state.redirect && <Redirect to="/home" />}
-        <Flex
-          width="full"
-          align="center"
-          justifyContent="center"
-          bg="black"
-          w="100%"
-          h="auto"
-          p={4}
-          gridArea="main"
-          direction="column"
-        >
-          <Box textAlign="center">
-            <Heading color="purple.300">Register</Heading>
-          </Box>
-          <Box my={4} textAlign="left" w="50%" minW="360px">
-            <form onSubmit={this.onSubmit}>
-              <FormControl>
-                <FormLabel color="white">Email</FormLabel>
-                <Input
-                  onChange={this.onChange}
-                  name="email"
-                  type="email"
-                  placeholder="name@email.com"
-                  value={this.state.email}
-                />
-              </FormControl>
-              <FormControl mt={6}>
-                <FormLabel color="white">Username</FormLabel>
-                <Input
-                  onChange={this.onChange}
-                  name="username"
-                  type="text"
-                  placeholder="create username"
-                  value={this.state.username}
-                />
-              </FormControl>
-              <FormControl mt={6}>
-                <FormLabel color="white">Password</FormLabel>
-                <Input
-                  onChange={this.onChange}
-                  name="password"
-                  type="password"
-                  placeholder="create password"
-                  value={this.state.password}
-                />
-              </FormControl>
-              <Button width="full" mt={4} type="submit" variantColor="purple">
-                Register
-              </Button>
-            </form>
-          </Box>
-        </Flex>
-      </>
-    );
-  }
-}
+
+  return (
+    <>
+      <Flex
+        width="full"
+        align="center"
+        justifyContent="center"
+        bg="black"
+        w="100%"
+        h="auto"
+        p={4}
+        gridArea="main"
+        direction="column"
+      >
+        <Box textAlign="center">
+          <Heading color="purple.300">Register</Heading>
+        </Box>
+        <Box my={4} textAlign="left" w="50%" minW="360px">
+          <form onSubmit={handleSubmit}>
+            <FormControl>
+              <FormLabel color="white">Email</FormLabel>
+              <Input
+                onChange={handleChange}
+                name="email"
+                type="email"
+                placeholder="name@email.com"
+                value={user.email}
+              />
+            </FormControl>
+            <FormControl mt={6}>
+              <FormLabel color="white">Username</FormLabel>
+              <Input
+                onChange={handleChange}
+                name="username"
+                type="text"
+                placeholder="create username"
+                value={user.username}
+              />
+            </FormControl>
+            <FormControl mt={6}>
+              <FormLabel color="white">Password</FormLabel>
+              <Input
+                onChange={handleChange}
+                name="password"
+                type="password"
+                placeholder="create password"
+                value={user.password}
+              />
+            </FormControl>
+            <Button width="full" mt={4} type="submit" variantColor="purple">
+              Register
+            </Button>
+          </form>
+        </Box>
+      </Flex>
+    </>
+  );
+};
 
 export default Register;
