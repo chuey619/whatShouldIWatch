@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/core";
 
 import { CustomLink as Link } from ".";
+import { useUser } from "../hooks";
+import { isEmpty } from "../util";
 
 const NavbarItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
@@ -19,6 +21,7 @@ const NavbarItems = ({ children }) => (
 
 // Note: This code could be better, so I'd recommend you to understand how I solved and you could write yours better :)
 const Navbar = (props) => {
+  const { user } = useUser();
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
 
@@ -78,18 +81,27 @@ const Navbar = (props) => {
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
-        <ButtonGroup spacing={4}>
-          <Link to={"/login"}>
+        {isEmpty(user.user) ? (
+          <ButtonGroup spacing={4}>
+            {" "}
+            <Link to={"/login"}>
+              <Button border="1px" variant="outline">
+                Login
+              </Button>
+            </Link>
+            <Link to={"/register"}>
+              <Button border="1px" variant="solid" variantColor={"purple"}>
+                Register
+              </Button>
+            </Link>
+          </ButtonGroup>
+        ) : (
+          <Link to={"/logout"}>
             <Button border="1px" variant="outline">
-              Login
+              Logout
             </Button>
           </Link>
-          <Link to={"/register"}>
-            <Button border="1px" variant="solid" variantColor={"purple"}>
-              Register
-            </Button>
-          </Link>
-        </ButtonGroup>
+        )}
       </Flex>
     </Flex>
   );
