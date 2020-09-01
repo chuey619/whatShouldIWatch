@@ -8,9 +8,9 @@ const passport = require("passport");
 
 const authHelpers = require("./services/auth-helpers");
 
+// const authRouter = require("./routes/auth-router");
+// const mediaRouter = require("./routes/media-router");
 const authRouter = require("./routes/auth-router");
-const mediaRouter = require("./routes/media-router");
-const authRouter = require("./routes/auth-routes");
 const collectionRouter = require("./routes/collection-routes");
 const mediaRouter = require("./routes/media-router");
 

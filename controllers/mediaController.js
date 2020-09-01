@@ -12,6 +12,7 @@ mediaController.index = (req, res, next) => {
   });
 };
 mediaController.show = (req, res, next) => {
+  console.log(req);
   fetch(
     `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id=${req.params.id}&source=utelly`,
     {
@@ -76,7 +77,7 @@ mediaController.addToFavorties = (req, res, next) => {
 mediaController.addToWatchLater = (req, res, next) => {
   Movie.getByRefId(req.params.id)
     .then((foundMovie) => {
-      foundMovie.saveToWatchLater(23);
+      foundMovie.saveToWatchLater(req.user.id);
       return res.json({
         message: "added to watch later",
       });
@@ -86,7 +87,7 @@ mediaController.addToWatchLater = (req, res, next) => {
 mediaController.deleteFromWatchLater = (req, res, next) => {
   Movie.getByRefId(req.params.id)
     .then((foundMovie) => {
-      foundMovie.deleteFromWatchLater(23);
+      foundMovie.deleteFromWatchLater(req.user.id);
       return res.json({
         message: "removed from watch later",
       });
@@ -96,7 +97,7 @@ mediaController.deleteFromWatchLater = (req, res, next) => {
 mediaController.deleteFromFavorites = (req, res, next) => {
   Movie.getByRefId(req.params.id)
     .then((foundMovie) => {
-      foundMovie.deleteFromFavorites(23);
+      foundMovie.deleteFromFavorites(req.user.id);
       return res.json({
         message: "removed from favorites",
       });

@@ -18,7 +18,7 @@ collectionsController.index = async (req, res, next) => {
   });
 };
 collectionsController.create = (req, res, next) => {
-  new Collection({ name: req.body.name, user_id: 23 })
+  new Collection({ name: req.body.name, user_id: req.user.id })
     .save()
     .then((savedCollection) => {
       res.json({
