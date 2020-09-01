@@ -1,6 +1,14 @@
 import React from "react";
 import { ThemeProvider, CSSReset } from "@chakra-ui/core";
-import { Home, Login, Register, Search, About, Results, Show } from "./pages";
+import {
+  Home,
+  Login,
+  Register,
+  About,
+  Results,
+  MyProfile,
+  Show,
+} from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FullWidth } from "./layouts";
 

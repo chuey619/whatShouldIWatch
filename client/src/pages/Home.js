@@ -44,18 +44,3 @@ function Home() {
 }
 
 export default Home;
-{
-  /* <form>
-<FormControl>
-  <Input
-    type="search"
-    width="30vw"
-    placeholder="What would you like to watch?"
-    mt="20px"
-  />
-</FormControl>
-<Button width="20vw" mt={4} type="submit" variantColor="purple">
-  Search
-</Button>
-</form> */
-}

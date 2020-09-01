@@ -1,24 +1,6 @@
 import React from "react";
-import axios from "axios";
+import { Redirect } from "react-router-dom";
 import { Box } from "@chakra-ui/core";
-//when auth is up and running we have to find a way to get user so we can check against services
-
-// response.data.results.map((result) => {
-//   result.locations.forEach((location) => {
-//
-//     // if (req.user.services.incluces(location.display_name)) {
-//     //   return result;
-//     // }
-//   });
-// });
-// this.setState({
-//   results: res.data.results,
-// });
-// return;
-
-import React from "react";
-import axios from "axios";
-import { Link, Router, Redirect } from "react-router-dom";
 
 class Search extends React.Component {
   constructor(props) {
