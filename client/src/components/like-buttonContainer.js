@@ -7,16 +7,34 @@ import React from 'react';
 // the counter has to be connected to movies
 // the counter is the only one connected to the database the button is connected to the counter
 
-class LikeButton extends React.Component {
+class LikeContainer extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
         counter: 0,
         view: 'counter',
       };
+      this.setView = this.setView.bind(this);
       this.togglelikeCompletion = this.togglelikeCompletion.bind(this);
       this.addLike = this.addLike.bind(this);
     };
+
+
+    componentDidMount() {
+      this.getAllLikes();
+    }
+
+    getAllLikes() {
+      fetch('/search')
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          counter: res.data.likes,
+        })
+      })
+    }
+
+    
 
       addLike(likeData) {
         this.setState({view: 'counter'});
@@ -28,8 +46,23 @@ class LikeButton extends React.Component {
           },
         }).then(res => res.json())
         .then(res => {
-          this.
+          this.getAllLikes();
         })
+      }
+
+      toggleLike(likesId) {
+        const likeUpdate = this.state.likes({ view: ''})
+      }
+
+      render() {
+        return (
+          <div className="like-container">
+            <h2>like</h2>
+            <div className="likebuttons">
+              <button onClick={() => this.setView('counter')}>Like</button>
+            </div>
+          </div>
+        )
       }
      
          
