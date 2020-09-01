@@ -1,5 +1,6 @@
 import React from "react";
 import { SubscriptionsModal } from "../components/";
+import Search from "./Search";
 import {
   useDisclosure,
   Box,
@@ -25,19 +26,7 @@ function Home() {
       >
         <Heading color="white">Browse movies and shows in one click.</Heading>
         <p>Search from six services and save your favorites for later!</p>
-        <form>
-          <FormControl>
-            <Input
-              type="search"
-              width="30vw"
-              placeholder="What would you like to watch?"
-              mt="20px"
-            />
-          </FormControl>
-          <Button width="20vw" mt={4} type="submit" variantColor="purple">
-            Search
-          </Button>
-        </form>
+        <Search />
       </Box>
       <SubscriptionsModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </>
