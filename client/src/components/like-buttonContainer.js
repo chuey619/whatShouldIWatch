@@ -25,7 +25,7 @@ class LikeContainer extends React.Component {
     }
 
     getAllLikes() {
-      fetch('/search')
+      fetch('movie/movie_id/likes')
       .then((res) => res.json())
       .then((res) => {
         this.setState({
