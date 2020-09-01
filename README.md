@@ -13,6 +13,7 @@ When I sign up I want to be able to give my streaming services
 	     I only want to see movies and shows i can watch based on 
 the services I have given
    I want to be able to search for movies and shows
+   
 If I search for a movie or show that I can not watch I want to see that I cant watch it and have a link to sign up for the site where I can watch it
       I want to be able to go to where I can watch the movie or show on its show page
 I want to be able to click on the show and see more detail about the show
@@ -20,14 +21,6 @@ I want to be able to see who contributed towards the shows making
 I want to be able to see how many seasons
 I want to be able to like the show like or dislike
 I want to be able to add it to a watch later or favorites list
-
-		
-		
-
-
-
-
-
 
 
 Routes(needs editing):
@@ -68,17 +61,21 @@ Able to tell if user is able to watch based on subscription service
 Ability to search for shows
 Ability to add movies  to watch later and favorites list
 Ability to delete from watch later and favorites list
+
 Should have:
 Ability to display all shows at once 
 Tell info about who contributed to the show
 Able to like a movie
+
 Could have:
 Login to the subscription service 
 History search
 Autocomplete search
+
 Won’t have:
 Won't have a ratings system
 Won’t have search by country 
+
 Targeted Users:
 Quarantine survivors
 People who enjoy watching shows and movies
