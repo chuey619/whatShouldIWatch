@@ -3,7 +3,7 @@ const User = require("../models/User");
 const mediaController = {};
 const fetch = require("node-fetch");
 const axios = require("axios");
-const { getByRefId } = require("../models/Movie");
+const { getByRefId, likes } = require("../models/Movie");
 mediaController.index = (req, res, next) => {
   Movie.getAllForUserByServices(23).then((movies) => {
     return res.json({
@@ -88,12 +88,14 @@ mediaController.addToWatchLater = (req, res, next) => {
 mediaController.addLike = (req, res, next) => {
   User.getById(req.params.user_id)
   .then((foundUser) => {
-    return foundUser.addLike
-    return res.json({
-      message: "liked",
+   foundUser.addLike();
     })
-  })
-  .catch(next);
+    .then(likes)
+      return res.json({
+        message: 'added like',
+      })
+      .catch(next);
+    })
 }
 
 
@@ -117,6 +119,18 @@ mediaController.deleteFromFavorites = (req, res, next) => {
     })
     .catch(next);
 };
+mediaController.deleteLike = (req, res, next) => {
+  User.getById(req.params.user_id)
+  .then((foundUser) => {
+    return foundUser.deleteLike();
+  })
+  .then((likes) => {
+    return res.json({
+      message: 'unliked',
+    })
+  })
+  .catch(next);
+}
 mediaController.search = (req, res, next) => {
   console.log(req.body);
   fetch(

@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/core";
 import { useParams } from "react-router-dom";
 import useQuery from "../hooks/useQuery";
-import LikeButton from "../components/like-button";
+// import LikeButton from "../components/like-buttonContainer";
 
 function Home() {
   const shouldAskSubscription = useQuery().has("askSubscription");

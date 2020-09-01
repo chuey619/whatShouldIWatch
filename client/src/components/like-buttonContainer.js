@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import { response } from 'express';
+
 
 // I want the button to be unique to each user and movie
 // I want the button to change true when clicked
@@ -14,33 +13,24 @@ class LikeButton extends React.Component {
       this.state = {
         counter: 0,
       };
+      this.togglelikeCompletion = this.togglelikeCompletion.bind(this);
+      this.addLike = this.addLike.bind(this);
     };
+
+    toggleLikeButton(likeButton) {
+
+    }
 
 
       render() {  
         return (
-     <button onClick={this.addLike}> Likes: {this.state.counter} </button>
+          <div className="like-container">
+                              {/* we dont have a view so idk yet what to put */}
+     <button onClick={() => this. ('like')}>Like</button> 
+      </div>
         )
       }
-      addLike = () => {
-          let newLike = this.state.counter + 1;
-          this.setState({
-              counter: newLike
-          })
-         fetch('/addLike', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify(LikeButton),
-         })
-         .then(res => res.json())
-         .then(LikeButton => {
-             console.log('liked:', LikeButton);
-         })
-         .catch((error) => {
-             console.error('Error', error);
-         })
+     
          
 
             //make a route to database after setState  

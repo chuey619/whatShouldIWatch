@@ -112,6 +112,9 @@ class Movie {
       [user_id, this.id]
     );
   }
+  deleteLikes() {
+    return db.none(`DELETE FROM likes WHERE id = $/id/`, this)
+  }
 }
 
 module.exports = Movie;
