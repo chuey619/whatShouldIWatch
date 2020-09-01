@@ -31,12 +31,18 @@ const Navbar = (props) => {
       padding="1.5rem"
       bg="gray.900"
       color="white"
+      gridArea="nav"
       {...props}
     >
       <Link to="/">
         <Flex align="center" mr={5}>
-          <Icon name="view" mr={2} size={"1.5em"} />
-          <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
+          <Icon name="view" mr={2} size={"1.5em"} color="purple.300" />
+          <Heading
+            as="h1"
+            size="lg"
+            letterSpacing={"-.1rem"}
+            color="purple.300"
+          >
             Where To Watch
           </Heading>
         </Flex>
@@ -59,9 +65,13 @@ const Navbar = (props) => {
         alignItems="center"
         flexGrow={1}
       >
-        <NavbarItems>About</NavbarItems>
+        <Link to="/about">
+          <NavbarItems>About</NavbarItems>
+        </Link>
         <NavbarItems>Search</NavbarItems>
-        <NavbarItems>My Profile</NavbarItems>
+        <Link to="/profile">
+          <NavbarItems>My Profile</NavbarItems>
+        </Link>
       </Box>
 
       <Flex
@@ -75,7 +85,7 @@ const Navbar = (props) => {
             </Button>
           </Link>
           <Link to={"/register"}>
-            <Button border="1px" variant="solid" variantColor={"green"}>
+            <Button border="1px" variant="solid" variantColor={"purple"}>
               Register
             </Button>
           </Link>
