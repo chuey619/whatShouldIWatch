@@ -3,11 +3,12 @@ const User = require("../models/User");
 
 module.exports = () => {
   passport.serializeUser((user, done) => {
+    console.log(user);
     done(null, user.username);
   });
 
   passport.deserializeUser((username, done) => {
-    User.findByUserName(username)
+    User.findByUsername(username)
       .then((user) => {
         done(null, user);
       })

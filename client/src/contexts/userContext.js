@@ -1,10 +1,11 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 
-const UserContext = createContext({
-  user: {},
-  setCurrentUser: () => {},
-});
+export const UserContext = createContext(null);
 
-UserContext.displayName = "userContext";
+export const UserProvider = ({ reducer, initialState, children }) => (
+  <UserContext.Provider value={useReducer(reducer, initialState)}>
+    {children}
+  </UserContext.Provider>
+);
 
-export default UserContext;
+export const useUserContext = () => useContext(UserContext);

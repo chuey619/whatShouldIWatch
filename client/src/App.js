@@ -12,17 +12,35 @@ import {
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FullWidth } from "./layouts";
 
-import { UserContext } from "./contexts";
-import useUser from "./hooks/useUser";
-
 import customTheme from "./theme";
+import { UserProvider } from "./contexts/userContext";
 
 function App() {
-  const user = useUser();
+  const initialState = {
+    user: {},
+  };
 
-  console.log(user);
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "login":
+        return {
+          ...state,
+          user: action.user,
+        };
+
+      case "logout":
+        return {
+          ...state,
+          user: {},
+        };
+
+      default:
+        return state;
+    }
+  };
+
   return (
-    <UserContext.Provider value={user}>
+    <UserProvider initialState={initialState} reducer={reducer}>
       <ThemeProvider theme={customTheme}>
         <CSSReset />
         <Router>
@@ -65,7 +83,7 @@ function App() {
           </Switch>
         </Router>
       </ThemeProvider>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 
