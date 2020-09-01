@@ -53,8 +53,6 @@ app.get("/", (req, res) => {
 app.use("/api/media", mediaRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/collections", collectionRouter);
-app.use("/api/media", mediaRouter);
-app.use("/api/auth", authRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({
