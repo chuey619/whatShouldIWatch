@@ -105,6 +105,11 @@ class User {
         });
       });
   }
+  static deleteLike(user_id, movie_id) {
+      return db.oneOrNone
+      (`DELETE FROM users_likes WHERE user_id = $1 AND movie_id = $2 RETURNING *`, [user_id, movie_id]
+      );
+    }
 }
 
 module.exports = User;

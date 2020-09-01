@@ -10,7 +10,6 @@ mediaRouter.post("/:id/favorites", mediaController.addToFavorties);
 mediaRouter.delete("/:id/favorites", mediaController.deleteFromFavorites);
 mediaRouter.post("/:id/watch-later", mediaController.addToWatchLater);
 mediaRouter.delete("/:id/watch-later", mediaController.deleteFromWatchLater);
-// mediaRouter.get('/movie/:movie_id/likes', mediaController.getLikes);
 mediaRouter.post('/:id/users_likes', mediaController.addLike);
-// mediaRouter.delete('/:id/likes', mediaController.deleteLike);
+mediaRouter.delete('/:id/users_likes', mediaController.deleteLike);
 module.exports = mediaRouter;

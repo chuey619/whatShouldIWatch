@@ -117,17 +117,14 @@ mediaController.deleteFromFavorites = (req, res, next) => {
     .catch(next);
 };
 mediaController.deleteLike = (req, res, next) => {
-  User.getById(req.params.user_id)
-  .then((foundUser) => {
-    return foundUser.deleteLike();
-  })
-  .then((likes) => {
+  User.deleteLike(23, req.params.movie_id)
+  .then(() => {
     return res.json({
-      message: 'unliked',
-    })
+    message: 'unliked',
+  });
   })
   .catch(next);
-}
+};
 mediaController.search = (req, res, next) => {
   console.log(req.body);
   fetch(

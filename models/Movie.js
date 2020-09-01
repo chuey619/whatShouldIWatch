@@ -44,7 +44,7 @@ class Movie {
         });
       });
   }
-  static likes(movie_id, user_id) {
+  static addlikes(movie_id, user_id) {
     return db 
     .one (`INSERT INTO likes 
     (movie_id, user_id)
@@ -112,8 +112,8 @@ class Movie {
       [user_id, this.id]
     );
   }
-  deleteLikes(user_id, movie_id) {
-    return db.none(`DELETE FROM likes WHERE user_id=$1 AND movie_id=$2`, [user_id, movie_id]
+  static deleteLike(user_id, movie_id) {
+    return db.oneOrNone(`DELETE FROM users_likes WHERE user_id = $1 AND movie_id = $2 RETURNING *`, [user_id, movie_id]
     );
   }
 }
