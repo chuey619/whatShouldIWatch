@@ -10,7 +10,7 @@ const pgp = require("pg-promise")(options);
 function setDatabase() {
   if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
     return pgp({
-      database: "what_should_i_watch",
+      database: "streaming_dev",
       port: 5432,
       host: "localhost",
       user: "postgres",
