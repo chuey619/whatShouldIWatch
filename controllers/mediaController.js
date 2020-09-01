@@ -43,16 +43,16 @@ mediaController.addToWatchLater = (req, res, next) => {
   });
 };
 
-// mediaController.likes = (req, res, next) => {
-//   Movie.getByRefId(req.params.id)
-//   .then((foundMovie) => {
-//     return res.json({
-//       message: "liked",
-//       data: likes++,
-//     })
-//   })
-//   .catch(next);
-// }
+mediaController.likes = (req, res, next) => {
+  Movie.getByRefId(req.params.id)
+  .then((foundMovie) => {
+    return res.json({
+      message: "liked",
+      data: likes++,
+    })
+  })
+  .catch(next);
+}
 
 
 mediaController.deleteFromWatchLater = (req, res, next) => {
