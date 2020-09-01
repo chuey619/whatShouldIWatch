@@ -12,7 +12,6 @@ class LikeContainer extends React.Component {
       super(props);
       this.state = {
         counter: 0,
-        view: 'counter',
       };
       this.setView = this.setView.bind(this);
       this.togglelikeCompletion = this.togglelikeCompletion.bind(this);

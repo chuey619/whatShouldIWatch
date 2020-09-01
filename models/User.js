@@ -40,7 +40,18 @@ class User {
           throw new Error("user not found");
         }
       });
-  }
+    }
+      static addLike(user_id, movie_id) {
+      return db
+      .oneOrNone(
+        `INSERT INTO users_likes 
+        (user_id, movie_id)
+        VALUES 
+        ($1, $2) 
+        RETURNING *
+        `, [user_id, movie_id])
+      };
+  
   getFavorites() {
     return db
       .manyOrNone(

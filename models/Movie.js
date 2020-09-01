@@ -112,8 +112,9 @@ class Movie {
       [user_id, this.id]
     );
   }
-  deleteLikes() {
-    return db.none(`DELETE FROM likes WHERE id = $/id/`, this)
+  deleteLikes(user_id, movie_id) {
+    return db.none(`DELETE FROM likes WHERE user_id=$1 AND movie_id=$2`, [user_id, movie_id]
+    );
   }
 }
 

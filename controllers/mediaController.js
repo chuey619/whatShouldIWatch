@@ -86,13 +86,12 @@ mediaController.addToWatchLater = (req, res, next) => {
 };
 
 mediaController.addLike = (req, res, next) => {
-  User.getById(req.params.user_id)
-  .then((foundUser) => {
-   foundUser.addLike();
-      return res.json({
-        message: 'added like',
+  User.addLike(23, req.params.movie_id) 
+      .then(() => {
+        return res.json({
+          message: 'added like',
       });
-    })
+      })
     .catch(next);
 };
 
