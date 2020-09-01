@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Box, Icon, Stack, Text } from "@chakra-ui/core";
 
 function Footer() {

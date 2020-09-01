@@ -13,6 +13,7 @@ import {
   Image,
 } from "@chakra-ui/core";
 
+
 const DEFAULT_STATE = {
   netflix: {
     active: false,

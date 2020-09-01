@@ -1,12 +1,32 @@
 import React from "react";
 import axios from "axios";
 import { Box } from "@chakra-ui/core";
+//when auth is up and running we have to find a way to get user so we can check against services
+
+// response.data.results.map((result) => {
+//   result.locations.forEach((location) => {
+//
+//     // if (req.user.services.incluces(location.display_name)) {
+//     //   return result;
+//     // }
+//   });
+// });
+// this.setState({
+//   results: res.data.results,
+// });
+// return;
+
+import React from "react";
+import axios from "axios";
+import { Link, Router, Redirect } from "react-router-dom";
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       term: "",
       results: [],
+      redirect: false,
     };
   }
   handleChange = (e) => {
@@ -16,38 +36,21 @@ class Search extends React.Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .get(
-        "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup",
-        {
-          headers: {
-            "content-type": "application/octet-stream",
-            "x-rapidapi-host":
-              "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-            "x-rapidapi-key": process.env.API_KEY,
-            useQueryString: true,
-          },
-          params: {
-            term: this.state.term,
-            country: "us",
-          },
-        }
-      )
-      .then((response) => {
-        //when auth is up and running we have to find a way to get user so we can check against services
-
-        // response.data.results.map((result) => {
-        //   result.locations.forEach((location) => {
-        //
-        //     // if (req.user.services.incluces(location.display_name)) {
-        //     //   return result;
-        //     // }
-        //   });
-        // });
+    fetch("api/media/search", {
+      method: "POST",
+      body: JSON.stringify(this.state),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
         this.setState({
-          results: response.data.results,
+          results: json.data.results,
+          redirect: true,
         });
-        return;
       })
       .catch((error) => {
         console.log(error);
@@ -58,6 +61,14 @@ class Search extends React.Component {
   render() {
     return (
       <Box gridArea="main">
+        {this.state.redirect && (
+          <Redirect
+            to={{
+              pathname: "/results",
+              state: { results: this.state.results },
+            }}
+          />
+        )}
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
