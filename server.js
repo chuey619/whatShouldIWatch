@@ -43,7 +43,8 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("hello world");
 });
-
+const collectionRoutes = require("./routes/collection-routes");
+app.use("/api/collections", collectionRoutes);
 const mediaRoutes = require("./routes/media-router");
 app.use("/api/media", mediaRoutes);
 const authRoutes = require("./routes/auth-routes");
