@@ -36,7 +36,6 @@ const Register = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setUser({ username: "", email: "", password: "" });
         history.push("/");
       });

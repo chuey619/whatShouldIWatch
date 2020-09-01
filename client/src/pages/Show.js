@@ -33,7 +33,6 @@ class Show extends React.Component {
         {this.state.currentMedia !== {} ? (
           <div>
             <h1>{this.state.currentMedia.name}</h1>
-            {console.log(this.state.currentMedia.locations)}
             <ul>
               {this.state.locations &&
                 this.state.locations.map((location) => {

@@ -17,7 +17,6 @@ const Login = (props) => {
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setUser((oldState) => {
-      console.log(oldState);
       return {
         ...oldState,
         [name]: value,
@@ -36,7 +35,6 @@ const Login = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setUser({ email: "", password: "" });
         history.push("/");
       });

@@ -20,7 +20,6 @@ import customTheme from "./theme";
 function App() {
   const user = useUser();
 
-  console.log(user);
   return (
     <UserContext.Provider value={user}>
       <ThemeProvider theme={customTheme}>
