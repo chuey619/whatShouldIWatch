@@ -10,6 +10,9 @@ const authHelpers = require("./services/auth-helpers");
 
 const authRouter = require("./routes/auth-router");
 const mediaRouter = require("./routes/media-router");
+const authRouter = require("./routes/auth-routes");
+const collectionRouter = require("./routes/collection-routes");
+const mediaRouter = require("./routes/media-router");
 
 const app = express();
 require("dotenv").config();
@@ -48,7 +51,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/media", mediaRouter);
-
+app.use("/api/auth", authRouter);
+app.use("/api/collections", collectionRouter);
+app.use("/api/media", mediaRouter);
 app.use("/api/auth", authRouter);
 
 app.use("*", (req, res) => {
