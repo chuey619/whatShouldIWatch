@@ -1,3 +1,6 @@
+import React from "react";
+import axios from "axios";
+import { Box } from "@chakra-ui/core";
 //when auth is up and running we have to find a way to get user so we can check against services
 
 // response.data.results.map((result) => {
@@ -16,6 +19,7 @@
 import React from "react";
 import axios from "axios";
 import { Link, Router, Redirect } from "react-router-dom";
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +60,7 @@ class Search extends React.Component {
   // reference to movie is saved on show page so you can save to collections from there
   render() {
     return (
-      <div>
+      <Box gridArea="main">
         {this.state.redirect && (
           <Redirect
             to={{
@@ -75,21 +79,14 @@ class Search extends React.Component {
           />
           <input type="submit" />
         </form>
-      </div>
-    );
-    {
-      /* {this.state.results &&
+        <div>
+          {this.state.results &&
             this.state.results.map((movie) => {
-              return (
-                <div>
-                  <img src={movie.picture} />
-                  <a href={`/api/media/${movie.id}`}>{movie.name}</a>;
-                </div>
-              );
+              return <p>{movie.name}</p>;
             })}
         </div>
-          </div>   } */
-    }
+      </Box>
+    );
   }
 }
 

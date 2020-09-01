@@ -1,5 +1,4 @@
 import React from "react";
-import { Navbar, Footer } from "../components";
 import { Redirect } from "react-router-dom";
 import {
   Flex,
@@ -49,7 +48,6 @@ class Register extends React.Component {
     return (
       <>
         {this.state.redirect && <Redirect to="/home" />}
-        <Navbar />
         <Flex
           width="full"
           align="center"
@@ -58,6 +56,7 @@ class Register extends React.Component {
           w="100%"
           h="auto"
           p={4}
+          gridArea="main"
           direction="column"
         >
           <Box textAlign="center">
@@ -101,7 +100,6 @@ class Register extends React.Component {
             </form>
           </Box>
         </Flex>
-        <Footer />
       </>
     );
   }

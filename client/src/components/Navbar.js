@@ -31,6 +31,7 @@ const Navbar = (props) => {
       padding="1.5rem"
       bg="gray.900"
       color="white"
+      gridArea="nav"
       {...props}
     >
       <Link to="/">
@@ -68,7 +69,9 @@ const Navbar = (props) => {
           <NavbarItems>About</NavbarItems>
         </Link>
         <NavbarItems>Search</NavbarItems>
-        <NavbarItems>My Profile</NavbarItems>
+        <Link to="/profile">
+          <NavbarItems>My Profile</NavbarItems>
+        </Link>
       </Box>
 
       <Flex

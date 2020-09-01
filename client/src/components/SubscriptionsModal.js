@@ -12,7 +12,7 @@ import {
   SimpleGrid,
   Image,
 } from "@chakra-ui/core";
-import FastAverageColor from "fast-average-color";
+
 
 const DEFAULT_STATE = {
   netflix: {

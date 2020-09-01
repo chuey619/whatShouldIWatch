@@ -1,11 +1,9 @@
 import React from "react";
-import { Navbar, Footer } from "../components";
 import { Flex, Box, Heading } from "@chakra-ui/core";
 
 function About() {
   return (
     <>
-      <Navbar />
       <Flex
         width="full"
         align="center"
@@ -15,6 +13,7 @@ function About() {
         h="auto"
         p={4}
         direction="column"
+        gridArea="main"
       >
         <Box textAlign="center">
           <Heading color="purple.300">About</Heading>
@@ -23,7 +22,6 @@ function About() {
           <p>How to work the app blahblahblahblahblah</p>
         </Box>
       </Flex>
-      <Footer />
     </>
   );
 }

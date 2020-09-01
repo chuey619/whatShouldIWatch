@@ -1,5 +1,4 @@
 import React from "react";
-import { Navbar, Footer } from "../components";
 import {
   Flex,
   Box,
@@ -44,7 +43,6 @@ class Login extends React.Component {
     return (
       <>
         {this.state.redirect && <Redirect to="/home" />}
-        <Navbar />
         <Flex
           width="full"
           align="center"
@@ -54,6 +52,7 @@ class Login extends React.Component {
           h="auto"
           p={4}
           direction="column"
+          gridArea="main"
         >
           <Box textAlign="center">
             <Heading color="purple.300">Login</Heading>
@@ -86,7 +85,6 @@ class Login extends React.Component {
             </form>
           </Box>
         </Flex>
-        <Footer />
       </>
     );
   }
