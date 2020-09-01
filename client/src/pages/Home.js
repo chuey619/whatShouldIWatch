@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SubscriptionsModal } from "../components/";
 import {
   useDisclosure,
@@ -13,6 +13,7 @@ import useQuery from "../hooks/useQuery";
 function Home() {
   const shouldAskSubscription = useQuery().has("askSubscription");
   const { isOpen, onOpen, onClose } = useDisclosure(shouldAskSubscription);
+
   return (
     <>
       <Box
