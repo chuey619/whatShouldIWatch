@@ -12,23 +12,24 @@ class LikeButton extends React.Component {
       super(props);
       this.state = {
         counter: 0,
+        view: 'counter',
       };
       this.togglelikeCompletion = this.togglelikeCompletion.bind(this);
       this.addLike = this.addLike.bind(this);
     };
 
-    toggleLikeButton(likeButton) {
-
-    }
-
-
-      render() {  
-        return (
-          <div className="like-container">
-                              {/* we dont have a view so idk yet what to put */}
-     <button onClick={() => this. ('like')}>Like</button> 
-      </div>
-        )
+      addLike(likeData) {
+        this.setState({view: 'counter'});
+        fetch('/:id/likes', {
+          method: 'POST',
+          body: JSON.stringify(likeData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(res => res.json())
+        .then(res => {
+          this.
+        })
       }
      
          
@@ -37,7 +38,7 @@ class LikeButton extends React.Component {
               //make a request to the post and delete routes 
               // make post add 1 
               //make delete subtract 1
-        }
+        
    
         
 }

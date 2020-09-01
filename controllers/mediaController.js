@@ -89,14 +89,12 @@ mediaController.addLike = (req, res, next) => {
   User.getById(req.params.user_id)
   .then((foundUser) => {
    foundUser.addLike();
-    })
-    .then(likes)
       return res.json({
         message: 'added like',
-      })
-      .catch(next);
+      });
     })
-}
+    .catch(next);
+};
 
 
 mediaController.deleteFromWatchLater = (req, res, next) => {
