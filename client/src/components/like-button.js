@@ -1,3 +1,4 @@
+import React from 'react';
 
 
 
@@ -6,9 +7,14 @@ class LikeButton extends React.Component {
         likes: 0
     };
 
+    Liked = () => {
+        this.setState(({ likes }) => ({
+            likes: likes + 1
+        }));
+    };
     render() {
-    return (
-        <button onClick={this.Liked}> Likes: {this.state.likes}</button>
-    )
+        return (
+            <button onClick={this.Liked}>❤️{this.state.likes}</button>
+        )
     }
 }
