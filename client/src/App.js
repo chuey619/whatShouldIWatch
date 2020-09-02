@@ -82,7 +82,14 @@ function App() {
               <About />
             </Route>
 
-            <Route path="/media/:id" render={(props) => <Show {...props} />} />
+            <Route
+              path="/media/:id"
+              render={(props) => (
+                <FullWidth>
+                  <Show {...props} />
+                </FullWidth>
+              )}
+            />
           </Switch>
         </Router>
       </ThemeProvider>

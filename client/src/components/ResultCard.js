@@ -1,9 +1,11 @@
 import React from "react";
-import { Box, Image, Heading } from "@chakra-ui/core";
-
+import { PseudoBox, Image, Heading } from "@chakra-ui/core";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
 function ResultCard(props) {
+  const [redirect, setRedirect] = useState(false);
   return (
-    <Box
+    <PseudoBox
       bg="grey"
       maxW="xs"
       maxH="200px"
@@ -11,10 +13,14 @@ function ResultCard(props) {
       bgImage={`url(${props.picture})`}
       bgSize="cover"
       backgroundRepeat="no-repeat"
-      boxShadow="0px 0px 10px 2px rgba(183,148,244,1)"
+      _hover={{ boxShadow: "0px 0px 10px 2px rgba(183,148,244,1)" }}
+      onClick={() => {
+        setRedirect(true);
+      }}
     >
+      {redirect && <Redirect to={`/media/${props.id}`} />}
       <Heading color="white">{props.name}</Heading>
-    </Box>
+    </PseudoBox>
   );
 }
 
