@@ -1,64 +1,40 @@
 import React from "react";
-import { Flex, Heading, Box, Stack, Image } from "@chakra-ui/core";
-
-function Feature({ title, ...rest }) {
-  return (
-    <Box p={5} shadow="md" bg="white" borderWidth="1px" {...rest}>
-      <Image src="/assets/hulu-active.png" width="80px" height="80px"></Image>
-      <Heading fontSize="sm">{title}</Heading>
-    </Box>
-  );
-}
+import { Flex, Grid, Link, Button, Text, Box, Image } from "@chakra-ui/core";
+import ResultCard from "../components/ResultCard";
 
 function MyProfile() {
   return (
     <>
-      <Flex
-        width="full"
-        align="center"
-        bg="black"
-        w="100%"
-        h="80vh"
-        p={4}
-        direction="column"
-        gridArea="main"
-        overflow="scroll"
-      >
-        <Box>
-          <Heading color="purple.300">Welcome!</Heading>
-        </Box>
-        <Box textAlign="center" color="white" fontSize="16pt">
-          <p>View your collections and manage your subscriptions below.</p>
-        </Box>
-        <Stack isInline spacing={8} overflow="scroll" mt="1vh" mb="1vh">
-          <Feature title="Plan Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-        </Stack>
-        <Stack isInline spacing={8} overflow="scroll" mt="1vh" mb="1vh">
-          <Feature title="Plan Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-        </Stack>
+      <Flex direction="column" overflowY="scroll">
+        {new Array(7).fill(0).map(() => {
+          return (
+            <>
+              <Text>Colletion</Text>
+              <Box>
+                <Box
+                  w="100%"
+                  h="150px"
+                  display="inline-flex"
+                  pb={2}
+                  overflowX="scroll"
+                >
+                  {new Array(20).fill(0).map(() => {
+                    return (
+                      <Image
+                        src={"/assets/netflix-active.png"}
+                        alt={"test"}
+                        borderRadius="md"
+                        width="200px"
+                      />
+                    );
+                  })}
+                </Box>
+              </Box>
+            </>
+          );
+        })}
       </Flex>
     </>
   );
 }
-
 export default MyProfile;
