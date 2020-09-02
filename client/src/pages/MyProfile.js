@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, Grid, Link, Button, Text, Box, Image } from "@chakra-ui/core";
 import ResultCard from "../components/ResultCard";
 
-function MyProfile() {
+function MyProfile(props) {
   return (
     <>
       <Flex direction="column" overflowY="scroll">

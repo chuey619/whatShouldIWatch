@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+
+import { useUserContext } from "../contexts/userContext";
 import {
   useDisclosure,
   Flex,
@@ -9,6 +11,7 @@ import {
   FormLabel,
   Input,
   Button,
+  useToast,
 } from "@chakra-ui/core";
 import { SubscriptionsModal } from "../components/";
 const Register = (props) => {
@@ -44,7 +47,8 @@ const Register = (props) => {
       color: "#f3f3f3",
     },
   });
-
+  const toast = useToast();
+  const [, dispatch] = useUserContext();
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -89,6 +93,28 @@ const Register = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
+        if (res?.data?.user) {
+          dispatch({
+            type: "login",
+            user: res?.data?.user,
+          });
+          history.push("/");
+        } else if (res?.data?.errors) {
+          const errors = res?.data?.errors;
+          if (errors) {
+            errors.forEach(({ title, description }) => {
+              toast({
+                title,
+                description,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+              });
+            });
+          }
+        }
+      })
+      .then(() => {
         setUser({
           username: "",
           email: "",
