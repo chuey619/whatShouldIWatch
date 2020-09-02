@@ -2,10 +2,10 @@ const express = require("express");
 const authRouter = express.Router();
 const usersController = require("../controllers/users-controller");
 const passport = require("../services/local");
-
+const User = require("../models/User");
 authRouter.post("/register", usersController.create);
 
-authRouter.post("/login", (req, res, next) => {
+authRouter.post("/login", async (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return next(err);
@@ -22,25 +22,40 @@ authRouter.post("/login", (req, res, next) => {
         },
       });
     }
-    req.logIn(user, (err) => {
+    req.logIn(user, async (err) => {
+      console.log(user, "user here");
+      let userToFind = await User.findByUsername(user.username);
+      let services = await userToFind.getServices();
+
       if (err) {
         return next(err);
       }
       return res.status(200).json({
         data: {
-          user,
+          user: {
+            username: user.username,
+            password_digest: user.password_digest,
+            email: user.email,
+            services: services,
+          },
         },
       });
     });
   })(req, res, next);
 });
 
-authRouter.get("/me", (req, res) => {
+authRouter.get("/me", async (req, res) => {
   if (req.user)
     return res.status(200).json({
       message: "ok",
       data: {
-        user: req.user,
+        user: {
+          username: req.user.username,
+          id: req.user.id,
+          email: req.user.email,
+          password_digest: req.user.password_digest,
+          services: await req.user.getServices(),
+        },
       },
     });
   else

@@ -1,12 +1,13 @@
 const db = require("../db/config");
 const Movie = require("./Movie");
+const Service = require("./Service");
 class User {
   constructor(user) {
     this.id = user.id || null;
     this.username = user.username;
     this.email = user.email;
     this.password_digest = user.password_digest;
-    this.services = [];
+    this.services = user.services;
   }
 
   static findByUsername(username) {
@@ -36,7 +37,37 @@ class User {
         }
       });
   }
+  async setServices() {
+    for (let i = 0; i < this.services.length; i++) {
+      let serviceId = await Service.getIdByName(this.services[i]);
+      await db.one(
+        `
+      INSERT INTO users_services
+      (user_id, service_id)
+      VALUES
+      ($1, $2)
+      RETURNING *
+      `,
+        [this.id, serviceId]
+      );
+    }
+    return this;
+  }
 
+  getServices() {
+    return db
+      .manyOrNone(
+        `
+      SELECT services.* FROM services JOIN users_services
+      ON services.id = users_services.service_id
+      WHERE users_services.user_id = $1
+      `,
+        this.id
+      )
+      .then((services) => {
+        return services.map((service) => service.name);
+      });
+  }
   getFavorites() {
     return db
       .manyOrNone(
@@ -74,7 +105,7 @@ class User {
           `,
         this
       )
-      .then((savedUser) => Object.assign(this, savedUser));
+      .then((user) => Object.assign(this, user));
   }
 }
 
