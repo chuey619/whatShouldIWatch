@@ -70,16 +70,26 @@ function App() {
                 <MyProfile />
               </FullWidth>
             </Route>
-            <Route path="/results">
-              <FullWidth>
-                <Results />
-              </FullWidth>
-            </Route>
+            <Route
+              path="/results"
+              render={(props) => (
+                <FullWidth>
+                  <Results {...props} />
+                </FullWidth>
+              )}
+            />
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/results" render={(props) => <Results {...props} />} />
-            <Route path="/media/:id" render={(props) => <Show {...props} />} />
+
+            <Route
+              path="/media/:id"
+              render={(props) => (
+                <FullWidth>
+                  <Show {...props} />
+                </FullWidth>
+              )}
+            />
           </Switch>
         </Router>
       </ThemeProvider>

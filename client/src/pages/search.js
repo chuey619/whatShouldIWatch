@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { Box } from "@chakra-ui/core";
+import { Box, Input, FormControl, Button } from "@chakra-ui/core";
 
 class Search extends React.Component {
   constructor(props) {
@@ -52,6 +52,20 @@ class Search extends React.Component {
           />
         )}
         <form onSubmit={this.handleSubmit}>
+          <FormControl>
+            <Input
+              onChange={this.handleChange}
+              type="search"
+              width="30vw"
+              placeholder="What would you like to watch?"
+              mt="20px"
+            />
+          </FormControl>
+          <Button width="20vw" mt={4} type="submit" variantColor="purple">
+            Search
+          </Button>
+        </form>
+        {/* <form >
           <input
             type="text"
             value={this.state.term}
@@ -60,13 +74,13 @@ class Search extends React.Component {
             name="term"
           />
           <input type="submit" />
-        </form>
-        <div>
+        </form> */}
+        {/* <div>
           {this.state.results &&
             this.state.results.map((movie) => {
               return <p>{movie.name}</p>;
             })}
-        </div>
+        </div> */}
       </Box>
     );
   }
