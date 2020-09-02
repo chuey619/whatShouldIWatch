@@ -21,11 +21,18 @@ function Home() {
         bg="black"
         display="flex"
         flexDirection="column"
-        alignItems="left"
+        alignItems="center"
         gridArea="main"
+        margin="auto"
+        width="100%"
+        height="100%"
       >
-        <Heading color="white">Browse movies and shows in one click.</Heading>
-        <p>Search from six services and save your favorites for later!</p>
+        <Heading marginTop="10%" color="white">
+          Browse movies and shows in one click.
+        </Heading>
+        <p style={{ color: "#808080" }}>
+          Search from six services and save your favorites for later!
+        </p>
         <Search />
       </Box>
     </>

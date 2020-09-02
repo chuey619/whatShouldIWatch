@@ -61,9 +61,17 @@ class Search extends React.Component {
               mt="20px"
             />
           </FormControl>
-          <Button width="20vw" mt={4} type="submit" variantColor="purple">
-            Search
-          </Button>
+          <FormControl alignItems="center">
+            <Button
+              marginLeft="25%"
+              width="50%"
+              mt={4}
+              type="submit"
+              variantColor="purple"
+            >
+              Search
+            </Button>
+          </FormControl>
         </form>
         {/* <form >
           <input

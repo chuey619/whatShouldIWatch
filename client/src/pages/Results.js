@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, SimpleGrid, Link, Button } from "@chakra-ui/core";
+import { Flex, SimpleGrid, Button } from "@chakra-ui/core";
+import { Link } from "react-router-dom";
 import ResultCard from "../components/ResultCard";
 const MovieResult = () => {
   // const imageURL = `/assets/${subscriptionName}`;
@@ -12,7 +13,7 @@ function Results(props) {
   return (
     <>
       <Flex overflow="auto" bg="black" p={4} gridArea="main">
-        <Link>
+        <Link to="/">
           <Button border="1px" variant="outline" color="white" bg="black">
             Back to search
           </Button>
