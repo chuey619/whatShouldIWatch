@@ -35,19 +35,17 @@ authRouter.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-authRouter.get("/verify", (req, res) => {
+authRouter.get("/me", (req, res) => {
   if (req.user)
     return res.status(200).json({
       message: "ok",
-      auth: true,
       data: {
         user: req.user,
       },
     });
   else
-    return res.status(400).json({
+    return res.status(200).json({
       message: "Retry Login",
-      auth: false,
       data: {
         user: null,
       },

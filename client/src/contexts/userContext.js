@@ -1,11 +1,45 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useRef,
+} from "react";
+import { isEmpty } from "../util";
 
 export const UserContext = createContext(null);
 
-export const UserProvider = ({ reducer, initialState, children }) => (
-  <UserContext.Provider value={useReducer(reducer, initialState)}>
-    {children}
-  </UserContext.Provider>
-);
+const initialValue = {
+  user: null,
+};
+
+export const UserProvider = ({ reducer, children }) => {
+  const [state, dispatch] = useReducer(reducer, initialValue);
+
+  useEffect(() => {
+    fetch(`/api/auth/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("Ran Me Query");
+        if (!isEmpty(res?.data?.user)) {
+          dispatch({
+            type: "login",
+            user: res?.data?.user,
+          });
+        }
+      });
+  }, []);
+
+  return (
+    <UserContext.Provider value={[state, dispatch]}>
+      {children}
+    </UserContext.Provider>
+  );
+};
 
 export const useUserContext = () => useContext(UserContext);

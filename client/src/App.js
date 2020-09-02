@@ -16,10 +16,6 @@ import customTheme from "./theme";
 import { UserProvider } from "./contexts/userContext";
 
 function App() {
-  const initialState = {
-    user: {},
-  };
-
   const reducer = (state, action) => {
     switch (action.type) {
       case "login":
@@ -40,7 +36,7 @@ function App() {
   };
 
   return (
-    <UserProvider initialState={initialState} reducer={reducer}>
+    <UserProvider reducer={reducer}>
       <ThemeProvider theme={customTheme}>
         <CSSReset />
         <Router>
