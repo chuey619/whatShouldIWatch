@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Flex, Box, Button, SimpleGrid } from '@chakra-ui/core';
 class Show extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +30,9 @@ class Show extends React.Component {
   };
   render() {
     return (
+        <Flex 
+        overflow="auto"
+      >
       <div>
         {this.state.currentMedia !== {} ? (
           <div>
@@ -43,6 +46,7 @@ class Show extends React.Component {
                     </li>
                   );
                 })}
+              <div className="lists">
               <button
                 onClick={() => {
                   this.addTo("favorites");
@@ -50,6 +54,7 @@ class Show extends React.Component {
               >
                 Add to favorites
               </button>
+              
               <button
                 onClick={() => {
                   this.addTo("watch-later");
@@ -57,7 +62,9 @@ class Show extends React.Component {
               >
                 Watch Later
               </button>
+              </div>
             </ul>
+            </Flex>
           </div>
         ) : (
           <p>loading</p>

@@ -37,3 +37,9 @@
   }
 }
 
+.lists {
+  display: flexbox;
+  flex-direction: column;
+  color: #61dafb;
+
+}
