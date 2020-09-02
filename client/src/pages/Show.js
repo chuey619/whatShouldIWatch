@@ -2,7 +2,7 @@ import React from "react";
 import {
   Flex,
   Box, 
-} from '@chakra-ui/core'
+} from "@chakra-ui/core";
 class Show extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +33,17 @@ class Show extends React.Component {
   };
   render() {
     return (
+      <>
+      <Flex
+      width="full"
+      align="left"
+      bg="blue"
+      w="100%"
+      h="auto"
+      p={2}
+      gridArea="main"
+      direction="column"
+      >
       <div>
         {this.state.currentMedia !== {} ? (
           <div>
@@ -46,13 +57,17 @@ class Show extends React.Component {
                     </li>
                   );
                 })}
+                <Box mx={1} textAlign="right" w="100%" minW="360px">
               <button 
                 onClick={() => {
                   this.addTo("favorites");
                 }}
               >
+                
                 Add to favorites
               </button>
+              </Box>
+              <Box mx={4} textAlign="right" w="100%" minW="360px">
               <button 
                 onClick={() => {
                   this.addTo("watch-later");
@@ -60,12 +75,21 @@ class Show extends React.Component {
               >
                 Watch Later
               </button>
+              </Box>
             </ul>
+            {/* <text as="h2" fontWeight="semibold" fontSize="xl" my={2}>
+                Description
+            </text>
+            <Text fontWeight="light" fontSize="md">
+
+            </Text> */}
           </div>
         ) : (
           <p>loading</p>
         )}
       </div>
+      </Flex>
+      </>
     );
   }
 }
