@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/core";
 import useQuery from "../hooks/useQuery";
 
-function Home() {
+function Home(props) {
   const shouldAskSubscription = useQuery().has("askSubscription");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -28,7 +28,7 @@ function Home() {
         height="100%"
       >
         <Heading marginTop="10%" color="white">
-          Browse movies and shows in one click.
+          Welcome Browse movies and shows in one click.
         </Heading>
         <p style={{ color: "#808080" }}>
           Search from six services and save your favorites for later!
