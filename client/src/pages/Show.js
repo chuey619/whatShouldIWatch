@@ -30,10 +30,16 @@ class Show extends React.Component {
   };
   render() {
     return (
+      <>
         <Flex 
-        overflow="auto"
-      >
-      <div>
+         overflow="auto"
+         p={4}
+         gridArea="main"
+        w="100%"
+        h="auto"
+        direction="column"
+        >
+        <div>
         {this.state.currentMedia !== {} ? (
           <div>
             <h1>{this.state.currentMedia.name}</h1>
@@ -46,7 +52,8 @@ class Show extends React.Component {
                     </li>
                   );
                 })}
-              <div className="lists">
+              <div>
+                <Box display="flex" textAlign="right" color="grey.50" justifyContent="space-between">
               <button
                 onClick={() => {
                   this.addTo("favorites");
@@ -54,7 +61,6 @@ class Show extends React.Component {
               >
                 Add to favorites
               </button>
-              
               <button
                 onClick={() => {
                   this.addTo("watch-later");
@@ -62,14 +68,16 @@ class Show extends React.Component {
               >
                 Watch Later
               </button>
-              </div>
+              </Box>
+              </div> 
             </ul>
-            </Flex>
           </div>
         ) : (
           <p>loading</p>
         )}
       </div>
+      </Flex>
+      </>
     );
   }
 }
