@@ -2,6 +2,7 @@ import React from "react";
 import {
   Flex,
   Box, 
+  Stack,
 } from "@chakra-ui/core";
 class Show extends React.Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class Show extends React.Component {
       <Flex
       width="full"
       align="left"
-      bg="blue"
       w="100%"
       h="auto"
       p={2}
@@ -57,7 +57,7 @@ class Show extends React.Component {
                     </li>
                   );
                 })}
-                <Box mx={1} textAlign="right" w="100%" minW="360px">
+                <Box mx={4} textAlign="right" w="100%" minW="360px">
               <button 
                 onClick={() => {
                   this.addTo("favorites");
