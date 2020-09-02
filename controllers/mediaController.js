@@ -105,7 +105,6 @@ mediaController.deleteFromFavorites = (req, res, next) => {
     .catch(next);
 };
 mediaController.search = (req, res, next) => {
-  console.log(req.body);
   fetch(
     `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${req.body.term}&country=us`,
     {

@@ -45,6 +45,8 @@ const ToggleableImage = ({
   toggleSubscription,
   active,
   color,
+  subscriptions,
+  addSubscriptions,
 }) => {
   const imageURL = `/assets/${subscriptionName}-${
     active ? "active" : "inactive"
@@ -62,11 +64,18 @@ const ToggleableImage = ({
   );
 };
 
-const SubscriptionsModal = ({ isOpen, onOpen, onClose }) => {
-  const [subscriptions, setSubscriptions] = useState(DEFAULT_STATE);
+const SubscriptionsModal = ({
+  formSubscriptions,
+  addSubscriptions,
+  isOpen,
+  onOpen,
+  onClose,
+  activeSubscriptions,
+}) => {
+  const [subscriptions, setSubscriptions] = useState(formSubscriptions);
 
   const toggleSubscription = (subscriptionName) => {
-    setSubscriptions((prevState) => {
+    addSubscriptions((prevState) => {
       return {
         ...prevState,
         [subscriptionName]: {
@@ -98,10 +107,12 @@ const SubscriptionsModal = ({ isOpen, onOpen, onClose }) => {
             <Text mb={4}>Click your subscriptions</Text>
             <FormControl>
               <SimpleGrid minChildWidth="120px" spacing="20px">
-                {Object.entries(subscriptions).map(
+                {Object.entries(formSubscriptions).map(
                   ([name, { color, active }]) => {
                     return (
                       <ToggleableImage
+                        subscriptions={subscriptions}
+                        addSubscriptions={addSubscriptions}
                         key={name}
                         subscriptionName={name}
                         toggleSubscription={toggleSubscription}

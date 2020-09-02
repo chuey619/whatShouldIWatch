@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
+  useDisclosure,
   Flex,
   Box,
   Heading,
@@ -9,34 +10,91 @@ import {
   Input,
   Button,
 } from "@chakra-ui/core";
-
+import { SubscriptionsModal } from "../components/";
 const Register = (props) => {
-  const [user, setUser] = useState({ username: "", email: "", password: "" });
-  const history = useHistory();
+  const [formSubscriptions, addSubscriptions] = useState({
+    Netflix: {
+      name: "Netflix",
+      active: false,
+      color: "#d13535",
+    },
+    Hulu: {
+      name: "Hulu",
+      active: false,
+      color: "#f3fdf7",
+    },
+    Hbomax: {
+      name: "HBO",
+      active: false,
+      color: "#36354b",
+    },
+    primevideo: {
+      name: "Amazon Prime Video",
+      active: false,
+      color: "#14222e",
+    },
+    disneyplus: {
+      name: "Disney+",
+      active: false,
+      color: "#6a5ca9",
+    },
+    Appletv: {
+      name: "AppleTV+",
+      active: false,
+      color: "#f3f3f3",
+    },
+  });
 
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    services: [],
+  });
+  const history = useHistory();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setUser((oldState) => {
-      console.log(oldState);
       return {
         ...oldState,
         [name]: value,
       };
     });
   };
-
+  const activeSubscriptions = () => {
+    let output = [];
+    Object.keys(formSubscriptions).map((key) => {
+      if (formSubscriptions[key].active === true) {
+        output.push(formSubscriptions[key].name);
+      }
+    });
+    return output;
+  };
   const handleSubmit = (evt) => {
     evt.preventDefault();
     fetch(`/api/auth/register`, {
       method: "POST",
-      body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        user: {
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          services: activeSubscriptions(),
+        },
+      }),
     })
       .then((res) => res.json())
       .then((res) => {
-        setUser({ username: "", email: "", password: "" });
+        setUser({
+          username: "",
+          email: "",
+          password: "",
+          services: [],
+        });
         history.push("/");
       });
   };
@@ -54,6 +112,14 @@ const Register = (props) => {
         gridArea="main"
         direction="column"
       >
+        <SubscriptionsModal
+          formSubscriptions={formSubscriptions}
+          addSubscriptions={addSubscriptions}
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
+          activeSubscriptions={activeSubscriptions}
+        />
         <Box textAlign="center">
           <Heading color="purple.300">Register</Heading>
         </Box>
@@ -89,6 +155,12 @@ const Register = (props) => {
                 value={user.password}
               />
             </FormControl>
+            <FormControl mt={6}>
+              <Button width="full" onClick={onOpen}>
+                Select Subscriptions
+              </Button>
+            </FormControl>
+
             <Button width="full" mt={4} type="submit" variantColor="purple">
               Register
             </Button>

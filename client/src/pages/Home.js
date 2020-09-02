@@ -13,7 +13,7 @@ import useQuery from "../hooks/useQuery";
 
 function Home() {
   const shouldAskSubscription = useQuery().has("askSubscription");
-  const { isOpen, onOpen, onClose } = useDisclosure(shouldAskSubscription);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -28,7 +28,6 @@ function Home() {
         <p>Search from six services and save your favorites for later!</p>
         <Search />
       </Box>
-      <SubscriptionsModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </>
   );
 }
