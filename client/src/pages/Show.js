@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  Flex,
+  Box, 
+} from '@chakra-ui/core'
 class Show extends React.Component {
   constructor(props) {
     super(props);
@@ -42,14 +46,14 @@ class Show extends React.Component {
                     </li>
                   );
                 })}
-              <button
+              <button 
                 onClick={() => {
                   this.addTo("favorites");
                 }}
               >
-                Add to favrorites
+                Add to favorites
               </button>
-              <button
+              <button 
                 onClick={() => {
                   this.addTo("watch-later");
                 }}
