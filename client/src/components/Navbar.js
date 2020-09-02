@@ -12,6 +12,7 @@ import {
 import { CustomLink as Link } from ".";
 import { isEmpty } from "../util";
 import { useUserContext } from "../contexts/userContext";
+import { useHistory } from "react-router-dom";
 
 const NavbarItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
@@ -20,9 +21,22 @@ const NavbarItems = ({ children }) => (
 );
 
 const Navbar = (props) => {
-  const [{ user }] = useUserContext();
+  const [{ user }, dispatch] = useUserContext();
+  const history = useHistory();
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
+
+  const handleLogout = (evt) => {
+    evt.preventDefault();
+    fetch(`/api/auth/logout`, {
+      method: "GET",
+    }).then((res) => {
+      dispatch({
+        type: "logout",
+      });
+      history.push("/login");
+    });
+  };
 
   return (
     <Flex
@@ -95,11 +109,9 @@ const Navbar = (props) => {
             </Link>
           </ButtonGroup>
         ) : (
-          <Link to={"/logout"}>
-            <Button border="1px" variant="outline">
-              Logout
-            </Button>
-          </Link>
+          <Button border="1px" variant="outline" onClick={handleLogout}>
+            Logout
+          </Button>
         )}
       </Flex>
     </Flex>

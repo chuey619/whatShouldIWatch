@@ -1,3 +1,5 @@
-const isEmpty = (obj) => Object.entries(obj).length === 0;
+const isEmpty = (obj) =>
+  [Object, Array].includes((obj || {}).constructor) &&
+  !Object.entries(obj || {}).length;
 
 export default isEmpty;
