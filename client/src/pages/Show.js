@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Box, Button, SimpleGrid, Image, Link } from '@chakra-ui/core';
+import { Flex, Box, Image, Link, List } from '@chakra-ui/core';
 import LikeButton from '../components/like-button';
 import Results from "./Results";
 
@@ -31,7 +31,9 @@ class Show extends React.Component {
       method: "DELETE",
     });
   };
+  
   render() {
+    console.log(this.props)
     return (
       <>
         <Flex 
@@ -53,18 +55,19 @@ class Show extends React.Component {
               {this.state.locations &&
                 this.state.locations.map((location) => {
                   return (
-                    <Box display="flex" size="100px" justifyContent="space-between">
-                      <li>
+                this.props.user[0].user.services.includes(location.display_name) ?
+                  
+                      <List size="100px">
                       <Link href={location.url} isExternal>
                       <Image src={location.icon}/>
                       </Link>
-                    </li>
-                    </Box>
-                  );
-                })}
-              <div>
-                <Box textAlign="right" color="blue.800">
-              <button
+                    </List>
+                     : 
+                  <p>no subscriptions</p> 
+                 )})}
+                <div>
+                <Box fontSize="25px" textAlign="right" color="blue.800">
+                <button
                 onClick={() => {
                   this.addTo("favorites");
                 }}
@@ -72,7 +75,7 @@ class Show extends React.Component {
                 Add to favorites
               </button>
               </Box>
-              <Box textAlign="right" color="blue.800">
+              <Box fontSize="25px" textAlign="right" color="blue.800">
               <button
                 onClick={() => {
                   this.addTo("watch-later");
