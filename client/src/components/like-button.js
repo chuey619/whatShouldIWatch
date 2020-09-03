@@ -35,3 +35,5 @@ class LikeButton extends React.Component {
         return <button onClick={this.handleClick}>❤️{this.state.count}</button>
     }
 }
+
+export default LikeButton;
