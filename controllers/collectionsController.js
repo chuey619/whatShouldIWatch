@@ -13,7 +13,7 @@ collectionsController.index = async (req, res, next) => {
         movies: movieArr,
       });
     }
-    res.json({
+    return res.json({
       message: "ok",
       data: resObj,
     });
