@@ -3,11 +3,30 @@ import React from 'react';
 
 
 class LikeButton extends React.Component {
-    state = {
-        likes: 0
-    };
+  constructor(props) {
+      super(props);
+      this.state = {
+          likes: 0,
+      }
+  }
+    
+// componentDidMount() {
+//     fetch(`/api/media/${}`)
+// }
+//     addLike = () {
+//         fetch(`api/media/${}`, {
+//          method:"POST",
+//       }); 
+//     };
 
-    Liked = () => {
+
+//     deleteLike = () => {
+//         fetch(`api/media/${}`, {
+//            method: "DELETE",
+//        });            
+//     };
+
+    handleClick = () => {
         this.setState(({ likes }) => ({
             likes: likes + 1
         }));
@@ -18,3 +37,5 @@ class LikeButton extends React.Component {
         )
     }
 }
+
+export default LikeButton;

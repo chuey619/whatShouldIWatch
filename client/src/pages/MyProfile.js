@@ -1,64 +1,66 @@
 import React from "react";
-import { Flex, Heading, Box, Stack, Image } from "@chakra-ui/core";
-
-function Feature({ title, ...rest }) {
-  return (
-    <Box p={5} shadow="md" bg="white" borderWidth="1px" {...rest}>
-      <Image src="/assets/hulu-active.png" width="80px" height="80px"></Image>
-      <Heading fontSize="sm">{title}</Heading>
-    </Box>
-  );
-}
+import {
+  Flex,
+  Grid,
+  Link,
+  Button,
+  Text,
+  Box,
+  Image,
+  PseudoBox,
+  useDisclosure,
+} from "@chakra-ui/core";
+import { CreateCollectionModal } from "../components";
 
 function MyProfile() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
-      <Flex
-        width="full"
-        align="center"
-        bg="black"
-        w="100%"
-        h="80vh"
-        p={4}
-        direction="column"
-        gridArea="main"
-        overflow="scroll"
-      >
-        <Box>
-          <Heading color="purple.300">Welcome!</Heading>
-        </Box>
-        <Box textAlign="center" color="white" fontSize="16pt">
-          <p>View your collections and manage your subscriptions below.</p>
-        </Box>
-        <Stack isInline spacing={8} overflow="scroll" mt="1vh" mb="1vh">
-          <Feature title="Plan Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-        </Stack>
-        <Stack isInline spacing={8} overflow="scroll" mt="1vh" mb="1vh">
-          <Feature title="Plan Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-          <Feature title="Save Money" />
-        </Stack>
+      <CreateCollectionModal
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+      />
+      <Flex direction="column" overflowY="scroll" bg="black" p="20px">
+        <Link>
+          <Button border="1px" variant="outline" color="white">
+            Create Collection
+          </Button>
+        </Link>
+        {new Array(7).fill(0).map(() => {
+          return (
+            <>
+              <Text fontSize="20pt" color="white">
+                Colletion
+              </Text>
+              <Box>
+                <Box
+                  w="100%"
+                  h="200px"
+                  display="inline-flex"
+                  mb={3}
+                  overflowX="scroll"
+                >
+                  {new Array(10).fill(0).map(() => {
+                    return (
+                      <Image
+                        src={"/assets/starisborn.jpeg"}
+                        alt={"test"}
+                        borderRadius="md"
+                        width="100%"
+                        onClick={() => console.log("Movie clicked")}
+                        mr="10px"
+                      />
+                    );
+                  })}
+                </Box>
+              </Box>
+            </>
+          );
+        })}
       </Flex>
     </>
   );
 }
-
 export default MyProfile;

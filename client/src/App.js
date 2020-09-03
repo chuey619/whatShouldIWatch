@@ -13,13 +13,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FullWidth } from "./layouts";
 
 import customTheme from "./theme";
-import { UserProvider } from "./contexts/userContext";
+import { UserProvider, UserContext } from "./contexts/userContext";
 
 function App() {
-  const initialState = {
-    user: {},
-  };
-
   const reducer = (state, action) => {
     switch (action.type) {
       case "login":
@@ -40,7 +36,7 @@ function App() {
   };
 
   return (
-    <UserProvider initialState={initialState} reducer={reducer}>
+    <UserProvider reducer={reducer}>
       <ThemeProvider theme={customTheme}>
         <CSSReset />
         <Router>
@@ -66,20 +62,42 @@ function App() {
               </FullWidth>
             </Route>
             <Route path="/profile">
-              <FullWidth>
-                <MyProfile />
-              </FullWidth>
+              <UserContext.Consumer>
+                {(value) => (
+                  <FullWidth>
+                    <MyProfile user={value} />
+                  </FullWidth>
+                )}
+              </UserContext.Consumer>
             </Route>
-            <Route path="/results">
-              <FullWidth>
-                <Results />
-              </FullWidth>
-            </Route>
+            <Route
+              path="/results"
+              render={(props) => (
+                <UserContext.Consumer>
+                  {(value) => (
+                    <FullWidth>
+                      <Results user={value} {...props} />
+                    </FullWidth>
+                  )}
+                </UserContext.Consumer>
+              )}
+            />
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/results" render={(props) => <Results {...props} />} />
-            <Route path="/media/:id" render={(props) => <Show {...props} />} />
+
+            <Route
+              path="/media/:id"
+              render={(props) => (
+                <UserContext.Consumer>
+                  {(value) => (
+                    <FullWidth>
+                      <Show user={value} {...props} />
+                    </FullWidth>
+                  )}
+                </UserContext.Consumer>
+              )}
+            />
           </Switch>
         </Router>
       </ThemeProvider>

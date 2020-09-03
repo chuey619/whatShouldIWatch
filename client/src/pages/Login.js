@@ -12,11 +12,11 @@ import {
 import { useHistory } from "react-router-dom";
 import { useUserContext } from "../contexts/userContext";
 
-const Login = (props) => {
+const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const history = useHistory();
   const toast = useToast();
-  const [{ user }, dispatch] = useUserContext();
+  const [, dispatch] = useUserContext();
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;

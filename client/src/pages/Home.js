@@ -1,5 +1,6 @@
 import React from "react";
 import { SubscriptionsModal } from "../components/";
+import Search from "./Search";
 import {
   useDisclosure,
   Box,
@@ -10,9 +11,9 @@ import {
 } from "@chakra-ui/core";
 import useQuery from "../hooks/useQuery";
 
-function Home() {
+function Home(props) {
   const shouldAskSubscription = useQuery().has("askSubscription");
-  const { isOpen, onOpen, onClose } = useDisclosure(shouldAskSubscription);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -20,26 +21,20 @@ function Home() {
         bg="black"
         display="flex"
         flexDirection="column"
-        alignItems="left"
+        alignItems="center"
         gridArea="main"
+        margin="auto"
+        width="100%"
+        height="100%"
       >
-        <Heading color="white">Browse movies and shows in one click.</Heading>
-        <p>Search from six services and save your favorites for later!</p>
-        <form>
-          <FormControl>
-            <Input
-              type="search"
-              width="30vw"
-              placeholder="What would you like to watch?"
-              mt="20px"
-            />
-          </FormControl>
-          <Button width="20vw" mt={4} type="submit" variantColor="purple">
-            Search
-          </Button>
-        </form>
+        <Heading marginTop="10%" color="white">
+          Welcome Browse movies and shows in one click.
+        </Heading>
+        <p style={{ color: "#808080" }}>
+          Search from six services and save your favorites for later!
+        </p>
+        <Search />
       </Box>
-      <SubscriptionsModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </>
   );
 }
