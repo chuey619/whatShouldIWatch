@@ -4,7 +4,7 @@ const mediaController = {};
 const fetch = require("node-fetch");
 
 mediaController.index = async (req, res, next) => {
-  let movies = await Movie.getAllForUserByServices(23);
+  let movies = await Movie.getAllForUserByServices(req.user.id);
   return res.json({
     message: "ok",
     data: movies,
@@ -64,7 +64,7 @@ mediaController.getWatchLater = async (req, res, next) => {
 mediaController.addToFavorties = async (req, res, next) => {
   try {
     let foundMovie = await Movie.getByRefId(req.params.id);
-    await foundMovie.saveToFavorites(23);
+    await foundMovie.saveToFavorites(req.user.id);
     return res.json({
       message: "movie saved succesfully",
     });
@@ -75,7 +75,7 @@ mediaController.addToFavorties = async (req, res, next) => {
 mediaController.addToWatchLater = async (req, res, next) => {
   try {
     let foundMovie = await Movie.getByRefId(req.params.id);
-    await foundMovie.saveToWatchLater(23);
+    await foundMovie.saveToWatchLater(req.user.id);
     return res.json({
       message: "added to watch later",
     });

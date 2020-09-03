@@ -5,7 +5,7 @@ const collectionsController = {};
 collectionsController.index = async (req, res, next) => {
   try {
     resObj = { collections: [] };
-    const collections = await Collection.getAllForUser(23);
+    const collections = await Collection.getAllForUser(req.user.id);
     for (let i = 0; i < collections.length; i++) {
       let movieArr = await collections[i].getAllMoviesForCollection();
       await resObj.collections.push({
@@ -37,36 +37,64 @@ collectionsController.create = async (req, res, next) => {
   }
 };
 collectionsController.show = async (req, res, next) => {
-  let foundCollection = await Collection.findByNameForUser(req.params.name, 23);
-  let name = foundCollection.name;
-  let foundMedia = await foundCollection.getAllMoviesForCollection();
-  return res.json({
-    message: "ok",
-    data: {
-      name: name,
-      movies: foundMedia,
-    },
-  });
+  try {
+    let foundCollection = await Collection.findByNameForUser(
+      req.params.name,
+      req.user.id
+    );
+    let name = foundCollection.name;
+    let foundMedia = await foundCollection.getAllMoviesForCollection();
+    return res.json({
+      message: "ok",
+      data: {
+        name: name,
+        movies: foundMedia,
+      },
+    });
+  } catch {
+    next();
+  }
 };
 collectionsController.delete = async (req, res, next) => {
-  let foundCollection = await Collection.findByNameForUser(req.params.name, 23);
-  await foundCollection.delete();
-  return res.json({
-    message: "collection deleted",
-  });
+  try {
+    let foundCollection = await Collection.findByNameForUser(
+      req.params.name,
+      req.user.id
+    );
+    await foundCollection.delete();
+    return res.json({
+      message: "collection deleted",
+    });
+  } catch {
+    next();
+  }
 };
 collectionsController.addToCollection = async (req, res, next) => {
-  let foundCollection = await Collection.findByNameForUser(req.params.name, 23);
-  await foundCollection.addTo(parseInt(req.params.id));
-  return res.json({
-    message: "movie added succesfully",
-  });
+  try {
+    let foundCollection = await Collection.findByNameForUser(
+      req.params.name,
+      req.user.id
+    );
+    await foundCollection.addTo(parseInt(req.params.id));
+    return res.json({
+      message: "movie added succesfully",
+    });
+  } catch {
+    next();
+  }
 };
 collectionsController.removeFrom = async (req, res, next) => {
-  let foundCollection = await Collection.findByNameForUser(req.params.name, 23);
-  await foundCollection.removeFrom(parseInt(req.params.id));
-  return res.json({
-    message: "movie removed succesfully",
-  });
+  try {
+    let foundCollection = await Collection.findByNameForUser(
+      req.params.name,
+      req.user.id
+    );
+    await foundCollection.removeFrom(parseInt(req.params.id));
+    return res.json({
+      message: "movie removed succesfully",
+    });
+  } catch {
+    next();
+  }
 };
 module.exports = collectionsController;
