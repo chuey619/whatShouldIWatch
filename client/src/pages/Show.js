@@ -8,19 +8,34 @@ class Show extends React.Component {
     super(props);
     this.state = {
       currentMedia: {},
-      locations: [],
+      canWatch:[],
+      cantWatch: [],
     };
   }
-  componentDidMount() {
-    fetch(`/api/media/${this.props.match.params.id}`)
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          currentMedia: json.data.collection,
-          locations: json.data.collection.locations,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   fetch(`/api/media/${this.props.match.params.id}`)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       this.setState({
+  //         currentMedia: json.data.collection,
+  //       });
+  //       {this.props.user[0].user 
+  //       ? json.data.collection.locations.map((location) => {
+  //         this.props.user[0].user.services.includes(location.display_name)
+  //         ?
+  //         this.setState({canWatch: this.state.canWatch.concat(location),
+  //         })
+  //         : this.setState({
+  //           cantWatch: this.state.cantWatch.concat(location),
+  //         });
+  //       })
+  //       : this.setState({
+  //         canWatch:
+  //         json.data.collection.locations,
+  //       });
+  //     }
+  //     });
+  // }
   addTo = (collection) => {
     fetch(`/api/media/${this.props.match.params.id}/${collection}`, {
       method: "POST",
@@ -31,7 +46,7 @@ class Show extends React.Component {
       method: "DELETE",
     });
   };
-  
+
   render() {
     console.log(this.props)
     return (
@@ -44,7 +59,7 @@ class Show extends React.Component {
         h="auto"
         direction="column"
         >
-        <div>
+        {/* <div>
         {this.state.currentMedia !== {} ? (
           <div>
             <Box fontWeight="bold" fontSize="20px">
@@ -52,19 +67,31 @@ class Show extends React.Component {
             <Image h="500px" w="700px" rounded="full" src={this.state.currentMedia.picture}/>
             </Box>
             <ul>
-              {this.state.locations &&
-                this.state.locations.map((location) => {
+              {this.state.canWatch.length > 0 
+              ? ( 
+                this.state.canWatch.map((location) => {
                   return (
-                this.props.user[0].user.services.includes(location.display_name) ?
-                  
                       <List size="100px">
                       <Link href={location.url} isExternal>
                       <Image src={location.icon}/>
                       </Link>
                     </List>
-                     : 
-                  <p>no subscriptions</p> 
-                 )})}
+                  );
+                })
+              ) : (
+                <>
+              <h1>We could not find this on any of your subscriptions but you can watch here:{""}</h1>
+              {this.state.cantWatch.map((location) => {
+                return (
+                  <List size="100px">
+                    <Link href={location.url} isExternal>
+                      <Image src={location.icon}/>
+                    </Link>
+                  </List>
+                )
+              })}
+              </  >
+              )}
                 <div>
                 <Box fontSize="25px" textAlign="right" color="blue.800">
                 <button
@@ -90,7 +117,7 @@ class Show extends React.Component {
         ) : (
           <p>loading</p>
         )}
-      </div>
+      </div> */}
       </Flex>
       </>
     );
