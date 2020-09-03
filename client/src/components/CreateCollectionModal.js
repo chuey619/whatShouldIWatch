@@ -13,15 +13,12 @@ import {
   Input,
 } from "@chakra-ui/core";
 
-function CreateCollectionModal({ isOpen, onOpen, onClose }) {
+function CreateCollectionModal({ isOpen, onClose }) {
+  const [collectionName, setCollectionName] = useState();
+
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        closeOnOverlayClick={false}
-        size="xl"
-      >
+      <Modal isOpen={isOpen} closeOnOverlayClick={false} size="xl">
         <ModalOverlay bg="rgb(0 0 0 / 80%)" />
         <ModalContent
           bg="gray.900"
@@ -30,20 +27,27 @@ function CreateCollectionModal({ isOpen, onOpen, onClose }) {
           borderRadius="lg"
           boxShadow="1px 3px 32px #4a3853"
         >
-          <ModalHeader>Add Your Subscriptions</ModalHeader>
+          <ModalHeader>Create Collection</ModalHeader>
           <ModalBody>
-            <Text mb={4}>Create A New Collection</Text>
+            <Text mb={4}>Enter collection name below and save</Text>
             <FormControl>
-              <FormLabel htmlFor="email">Collection Name</FormLabel>
               <Input
                 type="collection-name"
                 id="collection-name"
-                placeholder="e.g.: My Favorite Movies"
+                placeholder="e.g. My Favorite Movies"
+                color="black"
+                onChange={(evt) => setCollectionName(evt.target.value)}
               />
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button variantColor="purple" mr={3} onClick={onClose}>
+            <Button
+              variantColor="purple"
+              mr={3}
+              onClick={() => {
+                onClose(collectionName);
+              }}
+            >
               Save
             </Button>
           </ModalFooter>
