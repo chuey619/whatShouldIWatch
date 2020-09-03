@@ -5,6 +5,10 @@
   "repository": "https://github.com/chuey619/whatShouldIWatch.git",
   "author": "chueyi619 <chuey.israel@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "12.18.2",
+    "yarn": "1.22.4"
+  },
   "dependencies": {
     "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
@@ -24,6 +28,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "heroku-postbuild": "cd client && yarn && yarn build && cp -a ./build/ ../public/"
   }
 }

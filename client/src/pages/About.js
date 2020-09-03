@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Box, Heading } from "@chakra-ui/core";
+import { Flex, Box, Heading, Text } from "@chakra-ui/core";
 
 function About() {
   return (
@@ -15,11 +15,20 @@ function About() {
         direction="column"
         gridArea="main"
       >
-        <Box textAlign="center">
+        <Box margin="0 auto" textAlign="center">
           <Heading color="purple.300">About</Heading>
-        </Box>
-        <Box textAlign="center" color="white" fontSize="30pt">
-          <p>How to work the app blahblahblahblahblah</p>
+          <Text
+            color="white"
+            margin="0 auto"
+            textAlign="center"
+            w="40%"
+            fontSize="4xl"
+          >
+            Welcome to What To Watch. Anyone is welcome to search shows and
+            movies to find where you can watch the show, or, sign up to create
+            collections and filter search results based on the services you are
+            subscribed to!
+          </Text>
         </Box>
       </Flex>
     </>

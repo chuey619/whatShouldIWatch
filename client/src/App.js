@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FullWidth } from "./layouts";
 
 import customTheme from "./theme";
-import { UserProvider } from "./contexts/userContext";
+import { UserProvider, UserContext } from "./contexts/userContext";
 
 function App() {
   const reducer = (state, action) => {
@@ -62,16 +62,24 @@ function App() {
               </FullWidth>
             </Route>
             <Route path="/profile">
-              <FullWidth>
-                <MyProfile />
-              </FullWidth>
+              <UserContext.Consumer>
+                {(value) => (
+                  <FullWidth>
+                    <MyProfile user={value} />
+                  </FullWidth>
+                )}
+              </UserContext.Consumer>
             </Route>
             <Route
               path="/results"
               render={(props) => (
-                <FullWidth>
-                  <Results {...props} />
-                </FullWidth>
+                <UserContext.Consumer>
+                  {(value) => (
+                    <FullWidth>
+                      <Results user={value} {...props} />
+                    </FullWidth>
+                  )}
+                </UserContext.Consumer>
               )}
             />
             <Route path="/about">
@@ -81,9 +89,13 @@ function App() {
             <Route
               path="/media/:id"
               render={(props) => (
-                <FullWidth>
-                  <Show {...props} />
-                </FullWidth>
+                <UserContext.Consumer>
+                  {(value) => (
+                    <FullWidth>
+                      <Show user={value} {...props} />
+                    </FullWidth>
+                  )}
+                </UserContext.Consumer>
               )}
             />
           </Switch>

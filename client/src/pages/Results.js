@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, SimpleGrid, Link, Button } from "@chakra-ui/core";
+import { Flex, SimpleGrid, Button } from "@chakra-ui/core";
+import { Link, useHistory } from "react-router-dom";
 import ResultCard from "../components/ResultCard";
 const MovieResult = () => {
   // const imageURL = `/assets/${subscriptionName}`;
@@ -9,6 +10,8 @@ const MovieResult = () => {
 
 function Results(props) {
   const results = props.location.state.results;
+  const history = useHistory();
+  // history.push("/");
   return (
     <>
       <Flex overflow="auto" bg="black" p={4} gridArea="main">
@@ -25,9 +28,11 @@ function Results(props) {
           h="60vh"
           m="auto"
         >
-          {results.map((result) => (
-            <ResultCard {...result} />
-          ))}
+          {results != undefined ? (
+            results.map((result) => <ResultCard {...result} />)
+          ) : (
+            <p>loading</p>
+          )}
         </SimpleGrid>
       </Flex>
     </>

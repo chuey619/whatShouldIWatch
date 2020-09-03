@@ -1,4 +1,8 @@
 import React from "react";
+import { Flex, Box, Button, SimpleGrid, Image, Link } from '@chakra-ui/core';
+import LikeButton from '../components/like-button';
+import Results from "./Results";
+
 class Show extends React.Component {
   constructor(props) {
     super(props);
@@ -29,26 +33,46 @@ class Show extends React.Component {
   };
   render() {
     return (
-      <div>
+      <>
+        <Flex 
+         overflow="auto"
+         p={4}
+         gridArea="main"
+        w="100%"
+        h="auto"
+        direction="column"
+        >
+        <div>
         {this.state.currentMedia !== {} ? (
           <div>
-            <h1>{this.state.currentMedia.name}</h1>
+            <Box fontWeight="bold" fontSize="20px">
+            <h1>{this.state.currentMedia.name}:</h1>
+            <Image h="500px" w="700px" rounded="full" src={this.state.currentMedia.picture}/>
+            </Box>
             <ul>
               {this.state.locations &&
                 this.state.locations.map((location) => {
                   return (
-                    <li>
-                      <a href={location.url}>{location.display_name}</a>
+                    <Box display="flex" size="100px" justifyContent="space-between">
+                      <li>
+                      <Link href={location.url} isExternal>
+                      <Image src={location.icon}/>
+                      </Link>
                     </li>
+                    </Box>
                   );
                 })}
+              <div>
+                <Box textAlign="right" color="blue.800">
               <button
                 onClick={() => {
                   this.addTo("favorites");
                 }}
               >
-                Add to favrorites
+                Add to favorites
               </button>
+              </Box>
+              <Box textAlign="right" color="blue.800">
               <button
                 onClick={() => {
                   this.addTo("watch-later");
@@ -56,12 +80,16 @@ class Show extends React.Component {
               >
                 Watch Later
               </button>
+              </Box>
+              </div> 
             </ul>
           </div>
         ) : (
           <p>loading</p>
         )}
       </div>
+      </Flex>
+      </>
     );
   }
 }

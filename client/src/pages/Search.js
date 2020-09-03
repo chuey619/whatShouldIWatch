@@ -16,27 +16,25 @@ class Search extends React.Component {
       term: e.target.value,
     });
   };
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("api/media/search", {
-      method: "POST",
-      body: JSON.stringify(this.state),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        this.setState({
-          results: json.data.results,
-          redirect: true,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      let response = await fetch("api/media/search", {
+        method: "POST",
+        body: JSON.stringify(this.state),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+      let json = await response.json();
+      console.log(json);
+      this.setState({
+        results: json.data.results,
+        redirect: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
   // onclick should link to /api/media/result.id to get to show page
   // reference to movie is saved on show page so you can save to collections from there
@@ -61,9 +59,17 @@ class Search extends React.Component {
               mt="20px"
             />
           </FormControl>
-          <Button width="20vw" mt={4} type="submit" variantColor="purple">
-            Search
-          </Button>
+          <FormControl alignItems="center">
+            <Button
+              marginLeft="25%"
+              width="50%"
+              mt={4}
+              type="submit"
+              variantColor="purple"
+            >
+              Search
+            </Button>
+          </FormControl>
         </form>
         {/* <form >
           <input

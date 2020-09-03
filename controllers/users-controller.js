@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
-const setServices = require("../services/insertIntoUserServices");
+
 const usersController = {};
 
 usersController.create = async (req, res, next) => {

@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.lists {
+  display: flexbox;
+  flex-direction: column;
+  color: #61dafb;
+
+}

@@ -48,7 +48,7 @@ const ToggleableImage = ({
   subscriptions,
   addSubscriptions,
 }) => {
-  const imageURL = `/assets/${subscriptionName}-${
+  const imageURL = `/assets/${subscriptionName.toLowerCase()}-${
     active ? "active" : "inactive"
   }.png`;
   return (
