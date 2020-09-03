@@ -43,6 +43,19 @@ class Movie {
         });
       });
   }
+  getCollections() {
+    return db
+      .manyOrNone(
+        `SELECT users_collections.collection_id, collections.name FROM users_collections 
+        JOIN collections ON collections.id = users_collections.collection_id
+        WHERE media_id = $1
+    `,
+        this.id
+      )
+      .then((collection) => {
+        return collection;
+      });
+  }
   save() {
     return db
       .one(
@@ -106,5 +119,11 @@ class Movie {
     );
   }
 }
-
+// Movie.getByRefId("5d914028302b840050acbe62")
+//   .then((foundMovie) => {
+//     return foundMovie.getCollections();
+//   })
+//   .then((collection) => {
+//     console.log(collection);
+//   });
 module.exports = Movie;
