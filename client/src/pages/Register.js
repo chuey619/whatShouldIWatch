@@ -68,16 +68,16 @@ const Register = (props) => {
   };
   const activeSubscriptions = () => {
     let output = [];
-    Object.keys(formSubscriptions).map((key) => {
+    Object.keys(formSubscriptions).forEach((key) => {
       if (formSubscriptions[key].active === true) {
         output.push(formSubscriptions[key].name);
       }
     });
     return output;
   };
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    fetch(`/api/auth/register`, {
+    let response = await fetch(`/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,39 +90,30 @@ const Register = (props) => {
           services: activeSubscriptions(),
         },
       }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res?.data?.user) {
-          dispatch({
-            type: "login",
-            user: res?.data?.user,
-          });
-          history.push("/");
-        } else if (res?.data?.errors) {
-          const errors = res?.data?.errors;
-          if (errors) {
-            errors.forEach(({ title, description }) => {
-              toast({
-                title,
-                description,
-                status: "error",
-                duration: 9000,
-                isClosable: true,
-              });
-            });
-          }
-        }
-      })
-      .then(() => {
-        setUser({
-          username: "",
-          email: "",
-          password: "",
-          services: [],
-        });
-        history.push("/");
+    });
+    await setUser({
+      username: "",
+      email: "",
+      password: "",
+      services: [],
+    });
+    let res = await response.json();
+    if (res?.data?.user) {
+      dispatch({
+        type: "login",
+        user: res?.data?.user,
       });
+      history.push("/");
+    } else {
+      toast({
+        position: "top",
+        title: "Username/Email taken",
+        description: "Somebody beat you to it!",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -144,7 +135,6 @@ const Register = (props) => {
           isOpen={isOpen}
           onOpen={onOpen}
           onClose={onClose}
-          activeSubscriptions={activeSubscriptions}
         />
         <Box textAlign="center">
           <Heading color="purple.300">Register</Heading>

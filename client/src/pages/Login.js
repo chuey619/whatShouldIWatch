@@ -40,7 +40,6 @@ const Login = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res?.data?.user) {
-          console.log(res?.data?.user);
           dispatch({
             type: "login",
             user: res?.data?.user,
@@ -51,6 +50,7 @@ const Login = () => {
           if (errors) {
             errors.forEach(({ title, description }) => {
               toast({
+                position: "top",
                 title,
                 description,
                 status: "error",
