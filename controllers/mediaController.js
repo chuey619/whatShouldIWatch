@@ -119,7 +119,9 @@ mediaController.search = async (req, res, next) => {
         },
       }
     );
+    console.log(response, "=============== response here");
     let json = await response.json();
+    console.log(json, "=========== json here");
     return res.json({
       message: "ok",
       data: json,
