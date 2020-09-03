@@ -24,14 +24,16 @@ mediaController.show = async (req, res, next) => {
       }
     );
     let json = await response.json();
-    await new Movie({
+    let movie = new Movie({
       title: json.collection.name,
       ref_id: json.id,
       picture: json.collection.picture,
-    }).save();
+    });
+    await movie.save();
     return res.json({
       message: "ok",
       data: json,
+      our_id: movie.id,
     });
   } catch {
     next();
@@ -119,9 +121,9 @@ mediaController.search = async (req, res, next) => {
         },
       }
     );
-    console.log(response, "=============== response here");
+
     let json = await response.json();
-    console.log(json, "=========== json here");
+
     return res.json({
       message: "ok",
       data: json,

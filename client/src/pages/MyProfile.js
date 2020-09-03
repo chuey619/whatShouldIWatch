@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   Flex,
   Grid,
@@ -10,10 +11,25 @@ import {
   PseudoBox,
   useDisclosure,
 } from "@chakra-ui/core";
-import { CreateCollectionModal } from "../components";
+import { CreateCollectionModal, ResultCard } from "../components";
 
-function MyProfile() {
+function MyProfile(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userCollections, setUserCollections] = useState([]);
+  useEffect(() => {
+    if (props.user[0].user) {
+      fetch("/api/collections")
+        .then((res) => res.json())
+        .then((json) => setUserCollections(json.data.collections));
+    }
+  }, []);
+  // const getCollections = () => {
+  //   fetch("/api/collections")
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setUserCollections(json);
+  //     });
+  // };
 
   return (
     <>
@@ -22,43 +38,42 @@ function MyProfile() {
         onOpen={onOpen}
         onClose={onClose}
       />
-      <Flex direction="column" overflowY="scroll" bg="black" p="20px">
+      <Flex direction="column" overflow="auto" bg="black" p="20px">
         <Link>
           <Button border="1px" variant="outline" color="white">
             Create Collection
           </Button>
         </Link>
-        {new Array(7).fill(0).map(() => {
-          return (
-            <>
-              <Text fontSize="20pt" color="white">
-                Colletion
-              </Text>
-              <Box>
-                <Box
-                  w="100%"
-                  h="200px"
-                  display="inline-flex"
-                  mb={3}
-                  overflowX="scroll"
-                >
-                  {new Array(10).fill(0).map(() => {
-                    return (
-                      <Image
-                        src={"/assets/starisborn.jpeg"}
-                        alt={"test"}
-                        borderRadius="md"
-                        width="100%"
-                        onClick={() => console.log("Movie clicked")}
-                        mr="10px"
-                      />
-                    );
-                  })}
+        {userCollections &&
+          userCollections.map((collection) => {
+            return (
+              <>
+                <Text fontSize="20pt" color="white">
+                  {collection.name}
+                </Text>
+                <Box>
+                  <Box
+                    w="100%"
+                    h="200px"
+                    display="inline-flex"
+                    mb={3}
+                    overflowX="auto"
+                    mr={1}
+                  >
+                    {collection.movies.map((movie) => {
+                      return (
+                        <ResultCard
+                          name={movie.title}
+                          id={movie.ref_id}
+                          picture={movie.picture}
+                        />
+                      );
+                    })}
+                  </Box>
                 </Box>
-              </Box>
-            </>
-          );
-        })}
+              </>
+            );
+          })}
       </Flex>
     </>
   );
