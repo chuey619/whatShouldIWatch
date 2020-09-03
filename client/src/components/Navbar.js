@@ -40,6 +40,7 @@ const Navbar = (props) => {
 
   return (
     <Flex
+      display="flex"
       as="nav"
       align="center"
       justify="space-between"
@@ -78,8 +79,10 @@ const Navbar = (props) => {
       <Box
         display={{ sm: show ? "block" : "none", md: "flex" }}
         width={{ sm: "full", md: "auto" }}
-        alignItems="center"
+        alignItems="flex-end"
         flexGrow={1}
+        bg="gray.900"
+        zIndex={2}
       >
         <Link to="/about">
           <NavbarItems>About</NavbarItems>
