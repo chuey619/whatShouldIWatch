@@ -26,9 +26,11 @@ function Results(props) {
           h="60vh"
           m="auto"
         >
-          {results.map((result) => (
-            <ResultCard {...result} />
-          ))}
+          {results != undefined ? (
+            results.map((result) => <ResultCard {...result} />)
+          ) : (
+            <p>loading</p>
+          )}
         </SimpleGrid>
       </Flex>
     </>
