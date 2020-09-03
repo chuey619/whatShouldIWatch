@@ -15,8 +15,8 @@ function Results(props) {
   return (
     <>
       <Flex overflow="auto" bg="black" p={4} gridArea="main">
-        <Link to="/">
-          <Button border="1px" variant="outline" color="white" bg="black">
+        <Link>
+          <Button border="1px" variant="outline" color="white">
             Back to search
           </Button>
         </Link>

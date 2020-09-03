@@ -1,30 +1,56 @@
 import React from "react";
-import { Flex, Grid, Link, Button, Text, Box, Image } from "@chakra-ui/core";
-import ResultCard from "../components/ResultCard";
+import {
+  Flex,
+  Grid,
+  Link,
+  Button,
+  Text,
+  Box,
+  Image,
+  PseudoBox,
+  useDisclosure,
+} from "@chakra-ui/core";
+import { CreateCollectionModal } from "../components";
 
-function MyProfile(props) {
+function MyProfile() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
-      <Flex direction="column" overflowY="scroll">
+      <CreateCollectionModal
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+      />
+      <Flex direction="column" overflowY="scroll" bg="black" p="20px">
+        <Link>
+          <Button border="1px" variant="outline" color="white">
+            Create Collection
+          </Button>
+        </Link>
         {new Array(7).fill(0).map(() => {
           return (
             <>
-              <Text>Colletion</Text>
+              <Text fontSize="20pt" color="white">
+                Colletion
+              </Text>
               <Box>
                 <Box
                   w="100%"
-                  h="150px"
+                  h="200px"
                   display="inline-flex"
-                  pb={2}
+                  mb={3}
                   overflowX="scroll"
                 >
-                  {new Array(20).fill(0).map(() => {
+                  {new Array(10).fill(0).map(() => {
                     return (
                       <Image
-                        src={"/assets/netflix-active.png"}
+                        src={"/assets/starisborn.jpeg"}
                         alt={"test"}
                         borderRadius="md"
-                        width="200px"
+                        width="100%"
+                        onClick={() => console.log("Movie clicked")}
+                        mr="10px"
                       />
                     );
                   })}
