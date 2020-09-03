@@ -13,33 +13,6 @@ import {
   Image,
 } from "@chakra-ui/core";
 
-const DEFAULT_STATE = {
-  netflix: {
-    active: false,
-    color: "#d13535",
-  },
-  hulu: {
-    active: false,
-    color: "#f3fdf7",
-  },
-  hbomax: {
-    active: false,
-    color: "#36354b",
-  },
-  primevideo: {
-    active: false,
-    color: "#14222e",
-  },
-  disneyplus: {
-    active: false,
-    color: "#6a5ca9",
-  },
-  appletv: {
-    active: false,
-    color: "#f3f3f3",
-  },
-};
-
 const ToggleableImage = ({
   subscriptionName,
   toggleSubscription,
@@ -70,7 +43,6 @@ const SubscriptionsModal = ({
   isOpen,
   onOpen,
   onClose,
-  activeSubscriptions,
 }) => {
   const [subscriptions, setSubscriptions] = useState(formSubscriptions);
 
