@@ -84,7 +84,7 @@ const Navbar = (props) => {
         <Link to="/about">
           <NavbarItems>About</NavbarItems>
         </Link>
-        <NavbarItems>Search</NavbarItems>
+
         <Link to="/profile">
           <NavbarItems>My Profile</NavbarItems>
         </Link>
