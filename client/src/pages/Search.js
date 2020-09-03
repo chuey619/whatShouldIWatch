@@ -36,7 +36,7 @@ class Search extends React.Component {
           this.setState({
             redirect: true,
           });
-        }, 500);
+        }, 1000);
       })
       .catch((error) => {
         console.log(error);
