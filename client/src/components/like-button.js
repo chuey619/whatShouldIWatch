@@ -1,21 +1,39 @@
-
+import React from 'react';
 
 
 
 class LikeButton extends React.Component {
-    state = {
-        likes: 0
-    };
+  constructor(props) {
+      super(props);
+      this.state = {
+          likes: 0,
+      }
+  }
+    
+// componentDidMount() {
+//     fetch(`/api/media/${}`)
+// }
+//     addLike = () {
+//         fetch(`api/media/${}`, {
+//          method:"POST",
+//       }); 
+//     };
 
+
+//     deleteLike = () => {
+//         fetch(`api/media/${}`, {
+//            method: "DELETE",
+//        });            
+//     };
+
+    handleClick = () => {
+        this.setState(({ likes }) => ({
+            likes: likes + 1
+        }));
+    };
     render() {
-    return (
-        <button onClick={this.Liked}> Likes: {this.state.likes}</button>
-    )
-    }
-    Liked = () => {
-        let newCount = this.state.likes + 1
-        this.setState({
-            count: newCount
-        })
+        return <button onClick={this.handleClick}>❤️{this.state.count}</button>
     }
 }
+
+export default LikeButton;
