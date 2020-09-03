@@ -8,9 +8,12 @@ VALUES
 INSERT INTO services
 (name)
 VALUES
-('netflix'),
-('hulu'),
-('amazon prime');
+('Netflix'),
+('Hulu'),
+('Amazon Prime Video'),
+('AppleTV+'),
+('Disney+'),
+('HBO');
 
 INSERT INTO movies 
 (title, service_id)

@@ -24,6 +24,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "heroku-postbuild": "cd client && yarn && yarn build && cp -a ./build/ ../public/"
   }
 }
