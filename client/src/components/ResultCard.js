@@ -1,5 +1,5 @@
 import React from "react";
-import { PseudoBox, Image, Heading } from "@chakra-ui/core";
+import { PseudoBox, Heading } from "@chakra-ui/core";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 function ResultCard(props) {

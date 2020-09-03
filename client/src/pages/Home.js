@@ -1,5 +1,5 @@
 import React from "react";
-import { SubscriptionsModal } from "../components/";
+
 import Search from "./Search";
 import {
   useDisclosure,
@@ -13,9 +13,6 @@ import {
 import useQuery from "../hooks/useQuery";
 
 function Home(props) {
-  const shouldAskSubscription = useQuery().has("askSubscription");
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Box
@@ -29,7 +26,8 @@ function Home(props) {
         height="100%"
       >
         <Heading marginTop="10%" color="white">
-          Welcome. Browse movies and shows in one click.
+          Welcome {props.user[0].user && props.user[0].user.username}, Browse
+          movies and shows in one click.
         </Heading>
         <Text style={{ color: "#808080" }} fontSize="20pt">
           Search from six services and save your favorites for later!

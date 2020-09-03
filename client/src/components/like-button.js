@@ -32,7 +32,9 @@ class LikeButton extends React.Component {
         }));
     };
     render() {
-        return <button onClick={this.handleClick}>❤️{this.state.count}</button>
+        return (
+            <button onClick={this.Liked}>❤️{this.state.likes}</button>
+        )
     }
 }
 

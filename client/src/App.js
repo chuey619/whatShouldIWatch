@@ -42,9 +42,13 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <FullWidth>
-                <Home />
-              </FullWidth>
+              <UserContext.Consumer>
+                {(value) => (
+                  <FullWidth>
+                    <Home user={value} />
+                  </FullWidth>
+                )}
+              </UserContext.Consumer>
             </Route>
             <Route path="/login">
               <FullWidth>
