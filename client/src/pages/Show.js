@@ -1,18 +1,14 @@
 import React from "react";
-<<<<<<< HEAD
-import { Flex, Box, Image, Link, List } from '@chakra-ui/core';
-import LikeButton from '../components/like-button';
+import { Flex, Box, Image, Link, List } from "@chakra-ui/core";
+import LikeButton from "../components/like-button";
 import Results from "./Results";
-=======
-import { Flex, Box, Image, Link } from "@chakra-ui/core";
->>>>>>> chuey/clean-up
 
 class Show extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentMedia: {},
-      canWatch:[],
+      canWatch: [],
       cantWatch: [],
     };
   }
@@ -23,7 +19,7 @@ class Show extends React.Component {
   //       this.setState({
   //         currentMedia: json.data.collection,
   //       });
-  //       {this.props.user[0].user 
+  //       {this.props.user[0].user
   //       ? json.data.collection.locations.map((location) => {
   //         this.props.user[0].user.services.includes(location.display_name)
   //         ?
@@ -52,7 +48,7 @@ class Show extends React.Component {
   };
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <>
         <Flex
@@ -63,8 +59,7 @@ class Show extends React.Component {
           h="auto"
           direction="column"
         >
-<<<<<<< HEAD
-        {/* <div>
+          {/* <div>
         {this.state.currentMedia !== {} ? (
           <div>
             <Box fontWeight="bold" fontSize="20px">
@@ -123,65 +118,7 @@ class Show extends React.Component {
           <p>loading</p>
         )}
       </div> */}
-      </Flex>
-=======
-          <div>
-            {this.state.currentMedia !== {} ? (
-              <div>
-                <Box fontWeight="bold" fontSize="20px">
-                  <h1>{this.state.currentMedia.name}:</h1>
-                  <Image
-                    h="500px"
-                    w="700px"
-                    rounded="full"
-                    src={this.state.currentMedia.picture}
-                  />
-                </Box>
-                <ul>
-                  {this.state.locations &&
-                    this.state.locations.map((location) => {
-                      return (
-                        <Box
-                          display="flex"
-                          size="100px"
-                          justifyContent="space-between"
-                        >
-                          <li>
-                            <Link href={location.url} isExternal>
-                              <Image src={location.icon} />
-                            </Link>
-                          </li>
-                        </Box>
-                      );
-                    })}
-                  <div>
-                    <Box textAlign="right" color="blue.800">
-                      <button
-                        onClick={() => {
-                          this.addTo("favorites");
-                        }}
-                      >
-                        Add to favorites
-                      </button>
-                    </Box>
-                    <Box textAlign="right" color="blue.800">
-                      <button
-                        onClick={() => {
-                          this.addTo("watch-later");
-                        }}
-                      >
-                        Watch Later
-                      </button>
-                    </Box>
-                  </div>
-                </ul>
-              </div>
-            ) : (
-              <p>loading</p>
-            )}
-          </div>
         </Flex>
->>>>>>> chuey/clean-up
       </>
     );
   }

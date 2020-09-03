@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Flex,
   Grid,
@@ -10,11 +10,19 @@ import {
   PseudoBox,
   useDisclosure,
 } from "@chakra-ui/core";
-import { CreateCollectionModal } from "../components";
+import { CreateCollectionModal, ResultCard } from "../components";
 
-function MyProfile() {
+async function MyProfile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [collections, setCollections] = useState([]);
+  const getCollections = async () => {
+    let response = await fetch("/api/collections/");
+    let json = await response.json();
+    json.data.collections.forEach((collection) => {
+      setCollections(collections.concat(collection));
+    });
+  };
+  await getCollections();
   return (
     <>
       <CreateCollectionModal
@@ -28,11 +36,11 @@ function MyProfile() {
             Create Collection
           </Button>
         </Link>
-        {new Array(7).fill(0).map(() => {
+        {collections.map((collection) => {
           return (
             <>
               <Text fontSize="20pt" color="white">
-                Colletion
+                {collection.name}
               </Text>
               <Box>
                 <Box
@@ -42,15 +50,12 @@ function MyProfile() {
                   mb={3}
                   overflowX="scroll"
                 >
-                  {new Array(10).fill(0).map(() => {
+                  {collection.movies.map((movie) => {
                     return (
-                      <Image
-                        src={"/assets/starisborn.jpeg"}
-                        alt={"test"}
-                        borderRadius="md"
-                        width="100%"
-                        onClick={() => console.log("Movie clicked")}
-                        mr="10px"
+                      <ResultCard
+                        picture={movie.picture}
+                        id={movie.ref_id}
+                        name={movie.title}
                       />
                     );
                   })}
