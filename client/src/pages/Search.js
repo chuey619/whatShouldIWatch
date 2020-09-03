@@ -31,8 +31,12 @@ class Search extends React.Component {
       .then((json) => {
         this.setState({
           results: json.data.results,
-          redirect: true,
         });
+        setTimeout(() => {
+          this.setState({
+            redirect: true,
+          });
+        }, 500);
       })
       .catch((error) => {
         console.log(error);
