@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Flex,
   Grid,
@@ -10,19 +10,11 @@ import {
   PseudoBox,
   useDisclosure,
 } from "@chakra-ui/core";
-import { CreateCollectionModal, ResultCard } from "../components";
+import { CreateCollectionModal } from "../components";
 
-async function MyProfile() {
+function MyProfile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [collections, setCollections] = useState([]);
-  const getCollections = async () => {
-    let response = await fetch("/api/collections/");
-    let json = await response.json();
-    json.data.collections.forEach((collection) => {
-      setCollections(collections.concat(collection));
-    });
-  };
-  await getCollections();
+
   return (
     <>
       <CreateCollectionModal
@@ -36,11 +28,11 @@ async function MyProfile() {
             Create Collection
           </Button>
         </Link>
-        {collections.map((collection) => {
+        {new Array(7).fill(0).map(() => {
           return (
             <>
               <Text fontSize="20pt" color="white">
-                {collection.name}
+                Colletion
               </Text>
               <Box>
                 <Box
@@ -50,12 +42,15 @@ async function MyProfile() {
                   mb={3}
                   overflowX="scroll"
                 >
-                  {collection.movies.map((movie) => {
+                  {new Array(10).fill(0).map(() => {
                     return (
-                      <ResultCard
-                        picture={movie.picture}
-                        id={movie.ref_id}
-                        name={movie.title}
+                      <Image
+                        src={"/assets/starisborn.jpeg"}
+                        alt={"test"}
+                        borderRadius="md"
+                        width="100%"
+                        onClick={() => console.log("Movie clicked")}
+                        mr="10px"
                       />
                     );
                   })}

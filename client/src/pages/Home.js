@@ -1,7 +1,16 @@
 import React from "react";
 
 import Search from "./Search";
-import { Box, Heading } from "@chakra-ui/core";
+import {
+  useDisclosure,
+  Box,
+  Heading,
+  FormControl,
+  Input,
+  Button,
+  Text,
+} from "@chakra-ui/core";
+import useQuery from "../hooks/useQuery";
 
 function Home(props) {
   return (
@@ -20,9 +29,9 @@ function Home(props) {
           Welcome {props.user[0].user && props.user[0].user.username}, Browse
           movies and shows in one click.
         </Heading>
-        <p style={{ color: "#808080" }}>
+        <Text style={{ color: "#808080" }} fontSize="20pt">
           Search from six services and save your favorites for later!
-        </p>
+        </Text>
         <Search />
       </Box>
     </>
