@@ -2,7 +2,7 @@ import React from "react";
 import {
   Flex,
   Grid,
-  Link,
+  FormControl,
   Button,
   Text,
   Box,
@@ -15,24 +15,35 @@ import { CreateCollectionModal } from "../components";
 function MyProfile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const onSubmitCreate = (name) => {
+    console.log(name);
+
+    fetch(`/api/collections`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+      }),
+    }).then((res) => res.json());
+
+    onClose();
+  };
   return (
     <>
-      <CreateCollectionModal
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-      />
+      <CreateCollectionModal isOpen={isOpen} onClose={onSubmitCreate} />
       <Flex direction="column" overflowY="scroll" bg="black" p="20px">
-        <Link>
-          <Button border="1px" variant="outline" color="white">
+        <FormControl>
+          <Button border="1px" variant="outline" color="white" onClick={onOpen}>
             Create Collection
           </Button>
-        </Link>
+        </FormControl>
         {new Array(7).fill(0).map(() => {
           return (
             <>
               <Text fontSize="20pt" color="white">
-                Colletion
+                Collection
               </Text>
               <Box>
                 <Box

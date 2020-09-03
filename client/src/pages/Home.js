@@ -8,6 +8,7 @@ import {
   FormControl,
   Input,
   Button,
+  Text,
 } from "@chakra-ui/core";
 import useQuery from "../hooks/useQuery";
 
@@ -28,11 +29,11 @@ function Home(props) {
         height="100%"
       >
         <Heading marginTop="10%" color="white">
-          Welcome Browse movies and shows in one click.
+          Welcome. Browse movies and shows in one click.
         </Heading>
-        <p style={{ color: "#808080" }}>
+        <Text style={{ color: "#808080" }} fontSize="20pt">
           Search from six services and save your favorites for later!
-        </p>
+        </Text>
         <Search />
       </Box>
     </>
