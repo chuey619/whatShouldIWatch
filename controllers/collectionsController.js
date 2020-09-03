@@ -5,6 +5,7 @@ const collectionsController = {};
 collectionsController.index = async (req, res, next) => {
   try {
     resObj = { collections: [] };
+    console.log(req.user);
     const collections = await Collection.getAllForUser(req.user.id);
     for (let i = 0; i < collections.length; i++) {
       let movieArr = await collections[i].getAllMoviesForCollection();

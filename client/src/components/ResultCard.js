@@ -9,7 +9,9 @@ function ResultCard(props) {
       border="2px solid rgba(183,148,244,1)"
       borderRadius="10px"
       bg="grey"
-      maxW="xs"
+      h="180px"
+      w="200px"
+      maxW="200px"
       maxH="200px"
       bgPos="center"
       bgImage={`url(${props.picture})`}
