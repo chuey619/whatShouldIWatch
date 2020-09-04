@@ -56,7 +56,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/collections", collectionRouter);
 app.use("/api/users", userRoutes);
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 app.use("*", (req, res) => {
   res.status(404).json({
