@@ -280,7 +280,13 @@ function MyProfile(props) {
             })}
         </Accordion>
         <Link>
-          <Button onClick={onOpen} border="1px" variant="outline" color="white">
+          <Button
+            mt="10px"
+            onClick={onOpen}
+            border="1px"
+            variant="outline"
+            color="white"
+          >
             Create Collection
           </Button>
         </Link>
