@@ -26,13 +26,14 @@ function MyProfile(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userCollections, setUserCollections] = useState([]);
   const toast = useToast();
+
   useEffect(() => {
     if (props.user[0].user) {
       fetch("/api/collections")
         .then((res) => res.json())
         .then((json) => setUserCollections(json.data && json.data.collections));
     }
-  }, [shouldFetch]);
+  }, [shouldFetch, props.user[0].user]);
   const [userFavorites, setUserFavorites] = useState([]);
   useEffect(() => {
     if (props.user[0].user) {
@@ -40,7 +41,7 @@ function MyProfile(props) {
         .then((res) => res.json())
         .then((json) => setUserFavorites(json.data));
     }
-  }, [shouldFetchFavorites]);
+  }, [shouldFetchFavorites, props.user[0].user]);
 
   const [userWatchLater, setUserWatchLater] = useState([]);
 
@@ -50,7 +51,8 @@ function MyProfile(props) {
         .then((res) => res.json())
         .then((json) => setUserWatchLater(json.data));
     }
-  }, [shouldFetchWatchLater]);
+  }, [shouldFetchWatchLater, props.user[0].user]);
+
   const [services, setServices] = useState(
     JSON.parse(localStorage.getItem("services")) || []
   );
@@ -64,7 +66,8 @@ function MyProfile(props) {
     }
   }, []);
   const serviceSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    localStorage.setItem("services", JSON.stringify(services));
     await fetch("/api/users/services", {
       method: "POST",
       headers: {
@@ -72,7 +75,7 @@ function MyProfile(props) {
       },
       body: JSON.stringify(services),
     });
-    localStorage.setItem("services", JSON.stringify(services));
+
     toast({
       position: "bottom",
       title: "Saved!",

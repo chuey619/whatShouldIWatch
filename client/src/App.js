@@ -65,16 +65,21 @@ function App() {
                 <About />
               </FullWidth>
             </Route>
-            <Route path="/profile">
-              <UserContext.Consumer>
-                {(value) => (
-                  <FullWidth>
-                    <MyProfile user={value} />
-                  </FullWidth>
-                )}
-              </UserContext.Consumer>
-            </Route>
             <Route
+              exact
+              path="/profile"
+              render={(props) => (
+                <UserContext.Consumer>
+                  {(value) => (
+                    <FullWidth>
+                      <MyProfile user={value} {...props} />
+                    </FullWidth>
+                  )}
+                </UserContext.Consumer>
+              )}
+            />
+            <Route
+              exact
               path="/results"
               render={(props) => (
                 <UserContext.Consumer>

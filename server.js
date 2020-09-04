@@ -55,6 +55,7 @@ app.use("/api/media", mediaRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/collections", collectionRouter);
 app.use("/api/users", userRoutes);
+
 app.use("*", (req, res) => {
   res.status(404).json({
     message: "not found",
