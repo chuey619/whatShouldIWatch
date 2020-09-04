@@ -12,11 +12,14 @@ import {
   AccordionHeader,
   AccordionItem,
   AccordionPanel,
+  IconButton,
 } from "@chakra-ui/core";
 import { CreateCollectionModal, ResultCard } from "../components";
 
 function MyProfile(props) {
   const [shouldFetch, setShouldFetch] = useState(false);
+  const [shouldFetchWatchLater, setShouldFetchWatchLater] = useState(false);
+  const [shouldFetchFavorites, setShouldFetchFavorites] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userCollections, setUserCollections] = useState([]);
   useEffect(() => {
@@ -33,7 +36,7 @@ function MyProfile(props) {
         .then((res) => res.json())
         .then((json) => setUserFavorites(json.data));
     }
-  }, []);
+  }, [shouldFetchFavorites]);
   const [userWatchLater, setUserWatchLater] = useState([]);
   useEffect(() => {
     if (props.user[0].user) {
@@ -41,7 +44,7 @@ function MyProfile(props) {
         .then((res) => res.json())
         .then((json) => setUserWatchLater(json.data));
     }
-  }, []);
+  }, [shouldFetchWatchLater]);
 
   return (
     <>
@@ -82,11 +85,32 @@ function MyProfile(props) {
                   {userWatchLater &&
                     userWatchLater.map((movie) => {
                       return (
-                        <ResultCard
-                          name={movie.title}
-                          id={movie.ref_id}
-                          picture={movie.picture}
-                        />
+                        <>
+                          <IconButton
+                            aria-label="Remove from watch later"
+                            icon="minus"
+                            onClick={async () => {
+                              await fetch(
+                                `/api/media/${movie.ref_id}/watch-later`,
+                                {
+                                  method: "DELETE",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                }
+                              );
+                              setShouldFetchWatchLater(!shouldFetchWatchLater);
+                            }}
+                            variant="solid"
+                            variantColor="red"
+                            size="xs"
+                          />
+                          <ResultCard
+                            name={movie.title}
+                            id={movie.ref_id}
+                            picture={movie.picture}
+                          />
+                        </>
                       );
                     })}
                 </Stack>
@@ -118,11 +142,32 @@ function MyProfile(props) {
                   {userFavorites &&
                     userFavorites.map((movie) => {
                       return (
-                        <ResultCard
-                          name={movie.title}
-                          id={movie.ref_id}
-                          picture={movie.picture}
-                        />
+                        <>
+                          <IconButton
+                            aria-label="Remove from favorites"
+                            icon="minus"
+                            onClick={async () => {
+                              await fetch(
+                                `/api/media/${movie.ref_id}/favorites`,
+                                {
+                                  method: "DELETE",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                }
+                              );
+                              setShouldFetchFavorites(!shouldFetchFavorites);
+                            }}
+                            variant="solid"
+                            variantColor="red"
+                            size="xs"
+                          />
+                          <ResultCard
+                            name={movie.title}
+                            id={movie.ref_id}
+                            picture={movie.picture}
+                          />
+                        </>
                       );
                     })}
                 </Stack>
@@ -161,11 +206,35 @@ function MyProfile(props) {
                         >
                           {collection.movies.map((movie) => {
                             return (
-                              <ResultCard
-                                name={movie.title}
-                                id={movie.ref_id}
-                                picture={movie.picture}
-                              />
+                              <>
+                                <IconButton
+                                  aria-label="Remove from watch later"
+                                  icon="minus"
+                                  onClick={async () => {
+                                    await fetch(
+                                      `/api/collections/${collection.name.replace(
+                                        " ",
+                                        "+"
+                                      )}/${movie.id}`,
+                                      {
+                                        method: "DELETE",
+                                        headers: {
+                                          "Content-Type": "application/json",
+                                        },
+                                      }
+                                    );
+                                    setShouldFetch(!shouldFetch);
+                                  }}
+                                  variant="solid"
+                                  variantColor="red"
+                                  size="xs"
+                                />
+                                <ResultCard
+                                  name={movie.title}
+                                  id={movie.ref_id}
+                                  picture={movie.picture}
+                                />
+                              </>
                             );
                           })}
                         </Stack>
