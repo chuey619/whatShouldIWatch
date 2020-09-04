@@ -37,6 +37,7 @@ authRouter.post("/login", async (req, res, next) => {
             password_digest: user.password_digest,
             email: user.email,
             services: services,
+            id: user.id,
           },
         },
       });

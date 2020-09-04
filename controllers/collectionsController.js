@@ -24,6 +24,7 @@ collectionsController.index = async (req, res, next) => {
 };
 collectionsController.create = async (req, res, next) => {
   try {
+    console.log(req.body);
     let collection = new Collection({
       name: req.body.name,
       user_id: req.user.id,
