@@ -40,7 +40,7 @@ function CreateCollectionModal({
   };
   return (
     <>
-      <Modal isOpen={isOpen} closeOnOverlayClick={false} size="xl">
+      <Modal isOpen={isOpen} closeOnOverlayClick={true} size="xl">
         <form onSubmit={handleSubmit}>
           <ModalOverlay bg="rgb(0 0 0 / 80%)" />
           <ModalContent

@@ -4,7 +4,7 @@ const User = require("../models/User");
 const usersController = {};
 
 usersController.create = async (req, res, next) => {
-  console.log(req.body.services);
+  console.log(req.body.services, "services");
   try {
     const salt = await bcrypt.genSaltSync();
     const hash = await bcrypt.hashSync(req.body.user.password, salt);
@@ -13,7 +13,8 @@ usersController.create = async (req, res, next) => {
       email: req.body.user.email,
       password_digest: hash,
       services: req.body.user.services,
-    }).save();
+    });
+    await user.save();
     await user.setServices();
     req.login(user, (err) => {
       if (err) return next(err);
