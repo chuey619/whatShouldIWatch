@@ -13,6 +13,8 @@ import {
   AccordionItem,
   AccordionPanel,
   IconButton,
+  Checkbox,
+  CheckboxGroup,
 } from "@chakra-ui/core";
 import { CreateCollectionModal, ResultCard } from "../components";
 
@@ -22,6 +24,7 @@ function MyProfile(props) {
   const [shouldFetchFavorites, setShouldFetchFavorites] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userCollections, setUserCollections] = useState([]);
+
   useEffect(() => {
     if (props.user[0].user) {
       fetch("/api/collections")
@@ -37,7 +40,9 @@ function MyProfile(props) {
         .then((json) => setUserFavorites(json.data));
     }
   }, [shouldFetchFavorites]);
+
   const [userWatchLater, setUserWatchLater] = useState([]);
+
   useEffect(() => {
     if (props.user[0].user) {
       fetch(`/api/media/user/${props.user[0].user.id}/watch-later`)
@@ -45,7 +50,29 @@ function MyProfile(props) {
         .then((json) => setUserWatchLater(json.data));
     }
   }, [shouldFetchWatchLater]);
-
+  const [services, setServices] = useState(
+    JSON.parse(localStorage.getItem("services")) || []
+  );
+  useEffect(() => {
+    if (props.user[0].user) {
+      setServices(props.user[0].user.services);
+      localStorage.setItem(
+        "services",
+        JSON.stringify(props.user[0].user.services)
+      );
+    }
+  }, []);
+  const serviceSubmit = async (e) => {
+    e.preventDefault();
+    await fetch("/api/users/services", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(services),
+    });
+    localStorage.setItem("services", JSON.stringify(services));
+  };
   return (
     <>
       <CreateCollectionModal
@@ -250,6 +277,147 @@ function MyProfile(props) {
             Create Collection
           </Button>
         </Link>
+        <form onSubmit={serviceSubmit}>
+          <Text color="purple.300" fontSize="xl">
+            Manage your subscriptions
+          </Text>
+          <CheckboxGroup
+            name="services"
+            defaultValue={
+              (props.user[0].user && props.user[0].user.services) || services
+            }
+          >
+            <Checkbox
+              color="white"
+              value="Hulu"
+              onClick={(evt) => {
+                if (
+                  services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(
+                    services.filter((service) => service != evt.target.value)
+                  );
+                } else if (
+                  !services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(services.concat(evt.target.value));
+                }
+              }}
+            >
+              Hulu
+            </Checkbox>
+            <Checkbox
+              onClick={(evt) => {
+                if (
+                  services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(
+                    services.filter((service) => service != evt.target.value)
+                  );
+                } else if (
+                  !services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(services.concat(evt.target.value));
+                }
+              }}
+              color="white"
+              value="Netflix"
+            >
+              Netflix
+            </Checkbox>
+            <Checkbox
+              onClick={(evt) => {
+                if (
+                  services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(
+                    services.filter((service) => service != evt.target.value)
+                  );
+                } else if (
+                  !services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(services.concat(evt.target.value));
+                }
+              }}
+              color="white"
+              value="Amazon Prime Video"
+            >
+              Amazon Prime Video
+            </Checkbox>
+            <Checkbox
+              onClick={(evt) => {
+                if (
+                  services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(
+                    services.filter((service) => service != evt.target.value)
+                  );
+                } else if (
+                  !services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(services.concat(evt.target.value));
+                }
+              }}
+              color="white"
+              value="Disney+"
+            >
+              Disney+
+            </Checkbox>
+            <Checkbox
+              onClick={(evt) => {
+                if (
+                  services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(
+                    services.filter((service) => service != evt.target.value)
+                  );
+                } else if (
+                  !services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(services.concat(evt.target.value));
+                }
+              }}
+              color="white"
+              value="HBO"
+            >
+              HBO
+            </Checkbox>
+            <Checkbox
+              onClick={(evt) => {
+                if (
+                  services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(
+                    services.filter((service) => service != evt.target.value)
+                  );
+                } else if (
+                  !services.includes(evt.target.value) &&
+                  evt.target.value !== undefined
+                ) {
+                  setServices(services.concat(evt.target.value));
+                }
+              }}
+              color="white"
+              value="AppleTV+"
+            >
+              AppleTV+
+            </Checkbox>
+          </CheckboxGroup>
+          <Button border="1px" variant="outline" color="white" type="submit">
+            Save
+          </Button>
+        </form>
       </Flex>
     </>
   );

@@ -29,5 +29,19 @@ usersController.create = async (req, res, next) => {
     next();
   }
 };
+usersController.manageServices = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    let user = await User.findByUsername(req.user.username);
+    await user.manageServices(req.body);
+    let services = await user.getServices();
+    return res.json({
+      message: "subscriptions managed",
+      data: services,
+    });
+  } catch {
+    next();
+  }
+};
 
 module.exports = usersController;
