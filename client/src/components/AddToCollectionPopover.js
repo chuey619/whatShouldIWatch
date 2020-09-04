@@ -26,6 +26,10 @@ function AddToCollectionPopover(props) {
     }
   }, []);
 
+  const { currentCollections } = props;
+  const collectionNames = (currentCollections || []).map((c) => c.name);
+
+  console.log(currentCollections);
   return (
     <Popover
       isOpen={isOpen}
@@ -54,14 +58,15 @@ function AddToCollectionPopover(props) {
         <PopoverBody>
           {userCollections &&
             userCollections.map((collection) => {
-              console.log(collection);
+              if (collectionNames.includes(collection.name)) {
+                return null;
+              }
               return (
                 <Button
                   mr="10px"
                   variant="outline"
                   bg="purple.400"
                   onClick={() => {
-                    console.log(props.media);
                     fetch(`/api/collections/${collection.name}/${props.id}`, {
                       method: "POST",
                       headers: {
@@ -69,6 +74,7 @@ function AddToCollectionPopover(props) {
                       },
                       body: JSON.stringify({ hello: "World" }),
                     });
+                    window.location.reload();
                   }}
                 >
                   {collection.name}

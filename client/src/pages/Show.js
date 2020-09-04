@@ -9,6 +9,7 @@ import {
   Text,
   ListItem,
   Button,
+  ListIcon,
 } from "@chakra-ui/core";
 import LikeButton from "../components/like-button";
 import Results from "./Results";
@@ -21,6 +22,7 @@ class Show extends React.Component {
       currentMedia: {},
       canWatch: [],
       cantWatch: [],
+      collections: [],
       id: "",
     };
   }
@@ -28,7 +30,6 @@ class Show extends React.Component {
     fetch(`/api/media/${this.props.match.params.id}`)
       .then((res) => res.json())
       .then((json) => {
-        console.log("TESTING", json);
         this.setState({
           currentMedia: json.data.collection,
           id: json.our_id,
@@ -48,6 +49,15 @@ class Show extends React.Component {
                 canWatch: json.data.collection.locations,
               });
         }
+      });
+
+    fetch(`/api/media/${this.props.match.params.id}/collections`)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log("TESTING", json);
+        this.setState({
+          collections: json.data,
+        });
       });
   }
   addTo = (collection) => {
@@ -69,7 +79,7 @@ class Show extends React.Component {
         </Text>
         {this.state.canWatch.map((location) => {
           return (
-            <ListItem size="100px">
+            <ListItem>
               <Link href={location.url} isExternal>
                 <Image src={location.icon} />
               </Link>
@@ -85,7 +95,7 @@ class Show extends React.Component {
     return (
       <>
         <Text fontSize="16pt" color="white" pb="20px">
-          But you can watch it here:{""}
+          You can't watch this with your current subscriptions. Try here:{""}
         </Text>
         {this.state.cantWatch.map((location) => {
           return (
@@ -101,7 +111,6 @@ class Show extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <>
         <Box
@@ -139,12 +148,25 @@ class Show extends React.Component {
                   <AddToCollectionPopover
                     user={this.props.user[0].user}
                     id={this.state.id}
+                    currentCollections={this.state.collections}
                   />
                 </Box>
-                <List spacing="-60px">
+                <List>
                   {this.state.canWatch.length > 0
                     ? this.renderCanWatch()
                     : this.renderWatchHere()}
+                  <Text fontSize="16pt" color="white" pb="20px" pt="20px">
+                    Currently saved in:{" "}
+                  </Text>
+
+                  {this.state.collections
+                    ? this.state.collections.map((c) => (
+                        <ListItem color="white" pb="10px">
+                          <ListIcon icon="check" color="purple.400" />
+                          {c.name}
+                        </ListItem>
+                      ))
+                    : ""}
                 </List>
               </Box>
             </>
