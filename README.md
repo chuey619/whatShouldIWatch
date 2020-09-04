@@ -1,9 +1,9 @@
 # what should i watch
 # Project 3
  ## Outside sources used: 
-Utelly API: https://rapidapi.com/utelly/api/utelly 
-Chakra
-Color picker
+ * Utelly API: https://rapidapi.com/utelly/api/utelly 
+ * Chakra
+ * Color picker
  
 
  ## Approach:
@@ -33,10 +33,10 @@ I want to be able to add it to a watch later or favorites list
 
 
 ## Unsolved problems: 
-Getting Guidebox
-LikeButton (left unfinished)
-Autocomplete search function (not able to get to)
-Shows history searches (not able to get to)
+* Getting Guidebox
+* LikeButton (left unfinished)
+* Autocomplete search function (not able to get to)
+* Shows history searches (not able to get to)
 
 
 
