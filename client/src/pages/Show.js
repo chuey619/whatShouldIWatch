@@ -28,6 +28,7 @@ class Show extends React.Component {
     fetch(`/api/media/${this.props.match.params.id}`)
       .then((res) => res.json())
       .then((json) => {
+        console.log("TESTING", json);
         this.setState({
           currentMedia: json.data.collection,
           id: json.our_id,
@@ -58,6 +59,45 @@ class Show extends React.Component {
     fetch(`/api/media/${this.props.match.params.id}/${collection}`, {
       method: "DELETE",
     });
+  };
+
+  renderCanWatch = () => {
+    return (
+      <>
+        <Text fontSize="16pt" color="white" pb="20px">
+          On:
+        </Text>
+        {this.state.canWatch.map((location) => {
+          return (
+            <ListItem size="100px">
+              <Link href={location.url} isExternal>
+                <Image src={location.icon} />
+              </Link>
+            </ListItem>
+          );
+        })}
+        ;
+      </>
+    );
+  };
+
+  renderWatchHere = () => {
+    return (
+      <>
+        <Text fontSize="16pt" color="white" pb="20px">
+          But you can watch it here:{""}
+        </Text>
+        {this.state.cantWatch.map((location) => {
+          return (
+            <ListItem>
+              <Link href={location.url} isExternal>
+                <Image src={location.icon} />
+              </Link>
+            </ListItem>
+          );
+        })}
+      </>
+    );
   };
 
   render() {
@@ -96,39 +136,15 @@ class Show extends React.Component {
                   >
                     {this.state.currentMedia.name}
                   </Heading>
-                  <AddToCollectionPopover />
+                  <AddToCollectionPopover
+                    user={this.props.user[0].user}
+                    id={this.state.id}
+                  />
                 </Box>
-                <Text fontSize="16pt" color="white" pb="20px">
-                  On:
-                </Text>
                 <List spacing="-60px">
-                  {this.state.canWatch.length > 0 ? (
-                    this.state.canWatch.map((location) => {
-                      return (
-                        <ListItem size="100px">
-                          <Link href={location.url} isExternal>
-                            <Image src={location.icon} />
-                          </Link>
-                        </ListItem>
-                      );
-                    })
-                  ) : (
-                    <>
-                      <Text>
-                        We could not find this on any of your subscriptions but
-                        you can watch here:{""}
-                      </Text>
-                      {this.state.cantWatch.map((location) => {
-                        return (
-                          <ListItem>
-                            <Link href={location.url} isExternal>
-                              <Image src={location.icon} />
-                            </Link>
-                          </ListItem>
-                        );
-                      })}
-                    </>
-                  )}
+                  {this.state.canWatch.length > 0
+                    ? this.renderCanWatch()
+                    : this.renderWatchHere()}
                 </List>
               </Box>
             </>

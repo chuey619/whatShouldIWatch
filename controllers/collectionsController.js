@@ -72,12 +72,15 @@ collectionsController.delete = async (req, res, next) => {
   }
 };
 collectionsController.addToCollection = async (req, res, next) => {
+  console.log(req.params);
   try {
     let foundCollection = await Collection.findByNameForUser(
       req.params.name,
       req.user.id
     );
-    await foundCollection.addTo(parseInt(req.params.id));
+    console.log(foundCollection);
+    console.log(req.params.id);
+    await foundCollection.addTo(req.params.id);
     return res.json({
       message: "movie added succesfully",
     });

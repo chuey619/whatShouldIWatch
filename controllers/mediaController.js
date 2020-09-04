@@ -30,10 +30,13 @@ mediaController.show = async (req, res, next) => {
       picture: json.collection.picture,
     });
     await movie.save();
+
+    let newMovie = await Movie.getByRefId(movie.ref_id);
+
     return res.json({
       message: "ok",
       data: json,
-      our_id: movie.id,
+      our_id: newMovie.id,
     });
   } catch {
     next();
