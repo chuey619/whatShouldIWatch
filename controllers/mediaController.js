@@ -98,7 +98,7 @@ mediaController.deleteFromWatchLater = async (req, res, next) => {
 };
 mediaController.deleteFromFavorites = async (req, res, next) => {
   try {
-    let foundMovie = awaitMovie.getByRefId(req.params.id);
+    let foundMovie = await Movie.getByRefId(req.params.id);
     await foundMovie.deleteFromFavorites(req.user.id);
     return res.json({
       message: "removed from favorites",

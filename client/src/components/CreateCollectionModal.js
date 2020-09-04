@@ -13,45 +13,71 @@ import {
   Input,
 } from "@chakra-ui/core";
 
-function CreateCollectionModal({ isOpen, onClose }) {
-  const [collectionName, setCollectionName] = useState();
-
+function CreateCollectionModal({
+  isOpen,
+  onClose,
+  onOpen,
+  shouldFetch,
+  setShouldFetch,
+}) {
+  const [collectionName, setCollectionName] = useState({ name: "" });
+  const handleChange = (evt) => {
+    setCollectionName({
+      name: evt.target.value,
+    });
+  };
+  const handleSubmit = async (evt) => {
+    await onClose(collectionName);
+    evt.preventDefault();
+    await fetch("/api/collections", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(collectionName),
+    });
+    setShouldFetch(!shouldFetch);
+  };
   return (
     <>
       <Modal isOpen={isOpen} closeOnOverlayClick={false} size="xl">
-        <ModalOverlay bg="rgb(0 0 0 / 80%)" />
-        <ModalContent
-          bg="gray.900"
-          bgPos="center"
-          color="gray.200"
-          borderRadius="lg"
-          boxShadow="1px 3px 32px #4a3853"
-        >
-          <ModalHeader>Create Collection</ModalHeader>
-          <ModalBody>
-            <Text mb={4}>Enter collection name below and save</Text>
-            <FormControl>
-              <Input
-                type="collection-name"
-                id="collection-name"
-                placeholder="e.g. My Favorite Movies"
-                color="black"
-                onChange={(evt) => setCollectionName(evt.target.value)}
-              />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              variantColor="purple"
-              mr={3}
-              onClick={() => {
-                onClose(collectionName);
-              }}
-            >
-              Save
-            </Button>
-          </ModalFooter>
-        </ModalContent>
+        <form onSubmit={handleSubmit}>
+          <ModalOverlay bg="rgb(0 0 0 / 80%)" />
+          <ModalContent
+            bg="gray.900"
+            bgPos="center"
+            color="gray.200"
+            borderRadius="lg"
+            boxShadow="1px 3px 32px #4a3853"
+          >
+            <ModalHeader>Create Collection</ModalHeader>
+
+            <ModalBody>
+              <Text mb={4}>Enter collection name below and save</Text>
+              <FormControl>
+                <Input
+                  type="text"
+                  id="collection-name"
+                  placeholder="e.g. My Favorite Movies"
+                  color="black"
+                  onChange={handleChange}
+                  value={collectionName.name}
+                  name="name"
+                />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                type="submit"
+                variantColor="purple"
+                mr={3}
+                onClick={() => {}}
+              >
+                Save
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </form>
       </Modal>
     </>
   );
