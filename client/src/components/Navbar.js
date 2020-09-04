@@ -88,7 +88,7 @@ const Navbar = (props) => {
           <NavbarItems>About</NavbarItems>
         </Link>
 
-        <Link to="/profile">
+        <Link isDisabled={isEmpty(user) ? true : false} to="/profile">
           <NavbarItems>My Profile</NavbarItems>
         </Link>
       </Box>
