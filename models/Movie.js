@@ -43,14 +43,14 @@ class Movie {
         });
       });
   }
-  getCollections() {
+  getCollections(id) {
     return db
       .manyOrNone(
         `SELECT users_collections.collection_id, collections.name FROM users_collections 
         JOIN collections ON collections.id = users_collections.collection_id
-        WHERE media_id = $1
+        WHERE media_id = $1 AND collections.user_id = $2
     `,
-        this.id
+        [this.id, id]
       )
       .then((collection) => {
         return collection;
