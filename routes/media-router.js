@@ -11,4 +11,5 @@ mediaRouter.delete("/:id/favorites", mediaController.deleteFromFavorites);
 mediaRouter.post("/:id/watch-later", mediaController.addToWatchLater);
 mediaRouter.delete("/:id/watch-later", mediaController.deleteFromWatchLater);
 mediaRouter.get("/:id/collections", mediaController.findCollections);
+
 module.exports = mediaRouter;

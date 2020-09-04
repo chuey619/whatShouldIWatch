@@ -107,6 +107,42 @@ class User {
       )
       .then((user) => Object.assign(this, user));
   }
+  async manageServices(serviceArr) {
+    let userServices = await this.getServices();
+
+    userServices.forEach(async (service) => {
+      if (!serviceArr.includes(service)) {
+        let serviceId = await Service.getIdByName(service);
+        try {
+          return db.one(
+            `
+          DELETE FROM users_services 
+          WHERE user_id = $1 AND service_id = $2
+          RETURNING *
+          `,
+            [this.id, serviceId]
+          );
+        } catch {
+          console.log("service already added");
+        }
+      }
+    });
+    serviceArr.forEach(async (service) => {
+      if (!userServices.includes(service)) {
+        let serviceId = await Service.getIdByName(service);
+        return db.one(
+          `
+          INSERT INTO users_services
+          (user_id, service_id)
+          VALUES
+          ($1, $2)
+          RETURNING *
+          `,
+          [this.id, serviceId]
+        );
+      }
+    });
+  }
 }
 
 module.exports = User;
