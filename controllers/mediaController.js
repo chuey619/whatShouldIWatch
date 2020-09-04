@@ -138,7 +138,7 @@ mediaController.search = async (req, res, next) => {
 mediaController.findCollections = async (req, res, next) => {
   try {
     let foundMovie = await Movie.getByRefId(req.params.id);
-    console.log(foundMovie);
+    console.log("FUCK");
     let collections = await foundMovie.getCollections(req.user.id);
     return res.json({
       message: "ok",
