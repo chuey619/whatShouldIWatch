@@ -4,7 +4,7 @@
  * Utelly API: https://rapidapi.com/utelly/api/utelly 
  * Chakra
  * Color picker
- 
+ * heroku version: https://serene-plateau-44893.herokuapp.com/
 
  ## Approach:
 Are approach towards the project was at first to use the Guidebox API. We needed permission from Guidebox so until then we decided to work on frontend and authenticator until sunday to see if we would hear back from Guidebox. Guidebox did not give us the API so we decided to use Utelly instead which fit are apps purpose but limited are features. 
