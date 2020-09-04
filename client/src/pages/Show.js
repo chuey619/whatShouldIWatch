@@ -1,7 +1,18 @@
 import React from "react";
-import { Flex, Box, Image, Link, List } from "@chakra-ui/core";
+import {
+  Flex,
+  Box,
+  Image,
+  Link,
+  List,
+  Heading,
+  Text,
+  ListItem,
+  Button,
+} from "@chakra-ui/core";
 import LikeButton from "../components/like-button";
 import Results from "./Results";
+import { AddToCollectionPopover } from "../components";
 
 class Show extends React.Component {
   constructor(props) {
@@ -53,81 +64,78 @@ class Show extends React.Component {
     console.log(this.props);
     return (
       <>
-        <Flex
-          overflow="auto"
-          p={4}
-          gridArea="main"
+        <Box
+          display="flex"
+          width="full"
+          alignItems="center"
+          bg="black"
           w="100%"
           h="auto"
-          direction="column"
+          p={4}
+          gridArea="main"
+          justifyContent="center"
+          flexDirection="row"
         >
-          <div>
-            {this.state.currentMedia !== {} ? (
-              <div>
-                <Box fontWeight="bold" fontSize="20px">
-                  <h1>{this.state.currentMedia.name}:</h1>
-                  <Image
-                    h="500px"
-                    w="700px"
-                    rounded="full"
-                    src={this.state.currentMedia.picture}
-                  />
+          {this.state.currentMedia !== {} ? (
+            <>
+              <Box mr="50px">
+                <Image
+                  w="500px"
+                  borderRadius="10px"
+                  src={this.state.currentMedia.picture}
+                />
+              </Box>
+              <Box ml="50px">
+                <Box display="flex" flexDirection="row">
+                  <Heading
+                    fontWeight="bold"
+                    fontSize="35pt"
+                    color="white"
+                    pb="30px"
+                    mr="20px"
+                  >
+                    {this.state.currentMedia.name}
+                  </Heading>
+                  <AddToCollectionPopover />
                 </Box>
-                <ul>
+                <Text fontSize="16pt" color="white" pb="20px">
+                  On:
+                </Text>
+                <List spacing="-60px">
                   {this.state.canWatch.length > 0 ? (
                     this.state.canWatch.map((location) => {
                       return (
-                        <List size="100px">
+                        <ListItem size="100px">
                           <Link href={location.url} isExternal>
                             <Image src={location.icon} />
                           </Link>
-                        </List>
+                        </ListItem>
                       );
                     })
                   ) : (
                     <>
-                      <h1>
+                      <Text>
                         We could not find this on any of your subscriptions but
                         you can watch here:{""}
-                      </h1>
+                      </Text>
                       {this.state.cantWatch.map((location) => {
                         return (
-                          <List size="100px">
+                          <ListItem>
                             <Link href={location.url} isExternal>
                               <Image src={location.icon} />
                             </Link>
-                          </List>
+                          </ListItem>
                         );
                       })}
                     </>
                   )}
-                  <div>
-                    <Box fontSize="25px" textAlign="right" color="blue.800">
-                      <button
-                        onClick={() => {
-                          this.addTo("favorites");
-                        }}
-                      >
-                        Add to favorites
-                      </button>
-                    </Box>
-                    <Box fontSize="25px" textAlign="right" color="blue.800">
-                      <button
-                        onClick={() => {
-                          this.addTo("watch-later");
-                        }}
-                      >
-                        Watch Later
-                      </button>
-                    </Box>
-                  </div>
-                </ul>
-              </div>
-            ) : (
-              <p>loading</p>
-            )}
-          </div>
-        </Flex>
+                </List>
+              </Box>
+            </>
+          ) : (
+            <Text>loading</Text>
+          )}
+        </Box>
       </>
     );
   }

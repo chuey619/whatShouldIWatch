@@ -4,3 +4,4 @@ export { default as Footer } from "./Footer";
 export { default as SubscriptionsModal } from "./SubscriptionsModal";
 export { default as ResultCard } from "./ResultCard";
 export { default as CreateCollectionModal } from "./CreateCollectionModal";
+export { default as AddToCollectionPopover } from "./AddToCollectionPopover";

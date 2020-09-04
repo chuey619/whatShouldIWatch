@@ -10,7 +10,7 @@ function FullWidth({ children }) {
         "main"
         "footer"
       `}
-      gridTemplateRows="[top] auto [main-start] 75vh [main-end] 15vh [bottom]"
+      gridTemplateRows="[top] auto [main-start] 70vh [main-end] 20vh [bottom]"
       height="100vh"
     >
       <Navbar />
