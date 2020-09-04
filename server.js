@@ -50,7 +50,7 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("Ok");
 });
-
+app.use(express.static(path.join(__dirname, "build")));
 app.use("/api/media", mediaRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/collections", collectionRouter);
