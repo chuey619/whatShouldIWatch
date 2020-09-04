@@ -15,6 +15,7 @@ import {
   IconButton,
   Checkbox,
   CheckboxGroup,
+  useToast,
 } from "@chakra-ui/core";
 import { CreateCollectionModal, ResultCard } from "../components";
 
@@ -24,7 +25,7 @@ function MyProfile(props) {
   const [shouldFetchFavorites, setShouldFetchFavorites] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userCollections, setUserCollections] = useState([]);
-
+  const toast = useToast();
   useEffect(() => {
     if (props.user[0].user) {
       fetch("/api/collections")
@@ -72,6 +73,12 @@ function MyProfile(props) {
       body: JSON.stringify(services),
     });
     localStorage.setItem("services", JSON.stringify(services));
+    toast({
+      position: "bottom",
+      title: "Saved!",
+      status: "success",
+      duration: 1000,
+    });
   };
   return (
     <>
