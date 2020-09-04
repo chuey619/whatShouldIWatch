@@ -66,7 +66,6 @@ function App() {
               </FullWidth>
             </Route>
             <Route
-              exact
               path="/profile"
               render={(props) => (
                 <UserContext.Consumer>
@@ -79,7 +78,6 @@ function App() {
               )}
             />
             <Route
-              exact
               path="/results"
               render={(props) => (
                 <UserContext.Consumer>
